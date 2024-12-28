@@ -7,6 +7,7 @@ package Controlador;
 import Modelo.*;
 import java.util.List;
 import Vista.*;
+import java.awt.CardLayout;
 import org.hibernate.SessionFactory;
 /**
  *
@@ -15,32 +16,74 @@ import org.hibernate.SessionFactory;
 public class ControladorPrincipal {
     
     SessionFactory sessionFactory;
+    /*
     private Socio socio;
     private Monitor monitor;
     private Actividad actividad;
     private ControladorSocio controladorSocio;
     private ControladorActividad controladorActividad;
     private ControladorMonitor controladorMonitor;
-    private ControladorVistaSocio cvSocio;
+    */
+    VistaPrincipal vPrincipal;
+    VistaInicio vInicio;
+    VistaActividad vActividad;
+    VistaSocio vSocio;
+    VistaMonitor vMonitor;
     
     public ControladorPrincipal(SessionFactory s){
+        /*
         controladorSocio = new ControladorSocio();
         controladorMonitor = new ControladorMonitor();
         controladorActividad = new ControladorActividad();
         socio = new Socio();
         monitor = new Monitor();
         actividad = new Actividad();
+        */
         sessionFactory = s;
+        iniciarVistaPrincipal();
     }
     
-    public void iniciarVistaConexion(){
-        //VistaConexion.main();
+    public void iniciarVistaPrincipal(){
+        vPrincipal.getContentPane().setLayout(new CardLayout());
+        vPrincipal.add(vInicio);
+        vPrincipal.add(vMonitor);
+        vPrincipal.add(vSocio);
+        vPrincipal.add(vActividad);
+        
+        vInicio.setVisible(true);
+        vMonitor.setVisible(false);
+        vSocio.setVisible(false);
+        vActividad.setVisible(false);
     }
     
-    public void iniciarVistaSocio(){
-        cvSocio = new ControladorVistaSocio(controladorSocio.getAllHQL());
-    }
     
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
     public <T> void mostrarTodos(List<T> lista){
         for (T elemento : lista){
             System.out.println(elemento);
@@ -101,4 +144,5 @@ public class ControladorPrincipal {
             System.out.println(socioFetch);
         }
     }
+    */
 }

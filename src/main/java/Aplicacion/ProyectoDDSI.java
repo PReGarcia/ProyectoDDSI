@@ -6,6 +6,7 @@ package Aplicacion;
 import Controlador.ControladorConexion;
 import Controlador.ControladorPrincipal;
 import Vista.VistaConexion;
+import Vista.VistaPrincipal;
 import java.util.Scanner;
 
 /**
@@ -15,9 +16,6 @@ import java.util.Scanner;
 public class ProyectoDDSI {
 
     public static void main(String[] args) {
-        
-        VistaConexion vc = new VistaConexion();
-        vc.main();
         
         //ControladorPrincipal cp = new ControladorPrincipal();
         //cp.iniciarVistaConexion();

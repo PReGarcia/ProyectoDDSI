@@ -7,12 +7,14 @@ package Controlador;
 import Config.HibernateUtil;
 import Vista.VistaConexion;
 import Vista.VistaMensaje;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.hibernate.SessionFactory;
 /**
  *
  * @author pareg
  */
-public class ControladorConexion {
+public class ControladorConexion implements ActionListener{
     
     ControladorPrincipal controladorP;
     VistaConexion vConexion;
@@ -21,20 +23,49 @@ public class ControladorConexion {
     public static String user;
     public static String pass;
     
-    public ControladorConexion(String u, char[] p){
-        user = u;
-        pass = new String(p);
+    public ControladorConexion(){
+        vMensaje = new VistaMensaje();
+        vConexion = new VistaConexion();
+        
+        addListeners();
+        
+        vConexion.setLocationRelativeTo(null);
+        vConexion.setVisible(true);
     }
     
-    public void conectarBD(){
+    private void addListeners(){
+        vConexion.entrar.addActionListener(this);
+        vConexion.cancelar.addActionListener(this);
+    }
+    
+    public SessionFactory conectarBD(){
         sessionFactory = HibernateUtil.buildSessionFactory();
         if(sessionFactory == null){
-            //vMensaje.main("error", "Error al introducir las credenciales");
+            vMensaje.Mensaje("error", "Error al introducir las credenciales");
         }else{
-            //vMensaje.main("info", "Conexion correcta con hibernate"
-                    //+ "\n Va a acceder a la aplicación");
+            vMensaje.Mensaje("info", """
+                                      Conexion correcta con hibernate
+                                      Va a acceder a la aplicaci\u00f3n""");
             vConexion.dispose();
-            controladorP = new ControladorPrincipal(sessionFactory);
+            System.exit(0);
+        }
+        return sessionFactory;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch ( e.getActionCommand()){
+            case "entrarAplicacion" -> {
+                user = vConexion.jTextField1.getText();
+                pass = new String(vConexion.jPasswordField1.getPassword());
+                sessionFactory = conectarBD();
+                vConexion.dispose();
+                controladorP = new ControladorPrincipal(sessionFactory);
+            }
+            case "Cancelar" -> {
+                vMensaje.Mensaje( "info", "Salida correta de la aplicaion");
+                System.exit(0);
+            }
         }
     }
 }

@@ -8,12 +8,12 @@ package Vista;
  *
  * @author pareg
  */
-public class VistaSocio extends javax.swing.JPanel {
+public class VistaActividad extends javax.swing.JPanel {
 
     /**
-     * Creates new form VistaSocio
+     * Creates new form VistaActividad
      */
-    public VistaSocio() {
+    public VistaActividad() {
         initComponents();
     }
 

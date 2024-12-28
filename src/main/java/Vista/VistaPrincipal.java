@@ -30,14 +30,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
         label3 = new java.awt.Label();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        bg = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
 
         label3.setText("label3");
 
@@ -45,65 +47,87 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("jMenu2");
 
+        jMenu5.setText("jMenu5");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestión del Gimnasio \"Body Perfect\"");
 
-        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jMenu3.setText("Inicio");
+        jMenuBar1.add(jMenu3);
 
-        jButton1.setText("Entrar");
-        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 80, -1));
+        jMenu4.setText("Monitores");
 
-        jButton2.setText("Cancelar");
-        bg.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 80, -1));
+        jMenuItem1.setText("Gestión de monitores");
+        jMenu4.add(jMenuItem1);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuBar1.add(jMenu4);
+
+        jMenu6.setText("Socios");
+
+        jMenuItem2.setText("Gestión de socios");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jMenuItem2ActionPerformed(evt);
             }
         });
-        bg.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 180, 30));
-        bg.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 180, 30));
+        jMenu6.add(jMenuItem2);
 
-        jLabel1.setText("Usuario");
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 60, 30));
+        jMenuBar1.add(jMenu6);
 
-        jLabel2.setText("Password");
-        bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 30));
+        jMenu7.setText("Actividades");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setText("Bienvenido a \"Body Perfect\"");
-        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 300, 40));
+        jMenuItem3.setText("Gestión de actividades");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu7);
+
+        jMenu8.setText("Salir");
+        jMenuBar1.add(jMenu8);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 521, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 309, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel bg;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JOptionPane jOptionPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private java.awt.Label label3;
     // End of variables declaration//GEN-END:variables
 }

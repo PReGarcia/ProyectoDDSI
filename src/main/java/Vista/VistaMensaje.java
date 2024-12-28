@@ -11,10 +11,19 @@ package Vista;
 public class VistaMensaje extends javax.swing.JFrame {
 
     /**
-     * Creates new form VistaMensaje
+     * Creates new form VistaMensajes
      */
     public VistaMensaje() {
         initComponents();
+    }
+    
+    public void Mensaje(String s, String t){
+        if(s == "info"){
+            jOptionPane1.showMessageDialog(null, t, null, jOptionPane1.INFORMATION_MESSAGE);
+        }
+        else{
+            jOptionPane1.showMessageDialog(null, t, null, jOptionPane1.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -26,38 +35,20 @@ public class VistaMensaje extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jOptionPane1 = new javax.swing.JOptionPane();
+        jOptionPane2 = new javax.swing.JOptionPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("jLabel1");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel2)))
-                .addContainerGap(124, Short.MAX_VALUE))
+            .addComponent(jOptionPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel2)
-                .addGap(41, 41, 41)
-                .addComponent(jLabel1)
-                .addContainerGap(79, Short.MAX_VALUE))
+            .addComponent(jOptionPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -65,7 +56,7 @@ public class VistaMensaje extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JOptionPane jOptionPane1;
+    private javax.swing.JOptionPane jOptionPane2;
     // End of variables declaration//GEN-END:variables
 }
