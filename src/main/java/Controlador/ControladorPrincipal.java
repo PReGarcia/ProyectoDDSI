@@ -7,12 +7,14 @@ package Controlador;
 import Modelo.*;
 import java.util.List;
 import Vista.*;
+import org.hibernate.SessionFactory;
 /**
  *
  * @author pareg
  */
 public class ControladorPrincipal {
     
+    SessionFactory sessionFactory;
     private Socio socio;
     private Monitor monitor;
     private Actividad actividad;
@@ -21,17 +23,18 @@ public class ControladorPrincipal {
     private ControladorMonitor controladorMonitor;
     private ControladorVistaSocio cvSocio;
     
-    public ControladorPrincipal(){
+    public ControladorPrincipal(SessionFactory s){
         controladorSocio = new ControladorSocio();
         controladorMonitor = new ControladorMonitor();
         controladorActividad = new ControladorActividad();
         socio = new Socio();
         monitor = new Monitor();
         actividad = new Actividad();
+        sessionFactory = s;
     }
     
-    public void iniciarVistaPrincipal(){
-        VistaPrincipal.main();
+    public void iniciarVistaConexion(){
+        //VistaConexion.main();
     }
     
     public void iniciarVistaSocio(){

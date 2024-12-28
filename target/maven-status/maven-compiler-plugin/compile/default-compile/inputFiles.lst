@@ -1,17 +1,19 @@
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Aplicacion\ProyectoDDSI.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Config\HibernateUtil.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorActividad.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorLogin.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorMonitor.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorPrincipal.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorSocio.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorVistaSocio.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\Actividad.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\ActividadDAO.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\Monitor.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\MonitorDAO.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\Socio.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\SocioDAO.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaMonitor.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaPrincipal.java
-C:\Users\pareg\OneDrive\Escritorio\universidad\tercero\1cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaSocio.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Aplicacion\ProyectoDDSI.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Config\HibernateUtil.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorActividad.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorConexion.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorMonitor.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorPrincipal.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorSocio.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorVistaSocio.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\Actividad.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\ActividadDAO.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\Monitor.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\MonitorDAO.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\Socio.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\SocioDAO.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaConexion.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaMensaje.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaMonitor.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaPrincipal.java
+C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaSocio.java

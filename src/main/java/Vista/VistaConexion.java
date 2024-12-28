@@ -4,18 +4,29 @@
  */
 package Vista;
 
+import Controlador.ControladorConexion;
+
 /**
  *
  * @author pareg
  */
-public class VistaPrincipal extends javax.swing.JFrame {
+public class VistaConexion extends javax.swing.JFrame {
 
     /**
-     * Creates new form VistaPrincipal
+     * Creates new form VistaConexion
      */
-    public VistaPrincipal() {
+    public VistaConexion() {
         initComponents();
     }
+    
+    public String getUsuario(){
+        return jTextField1.getText();
+    }
+    
+    public char[] getPassword(){
+        return jPasswordField1.getPassword();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,30 +37,26 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jOptionPane1 = new javax.swing.JOptionPane();
-        label3 = new java.awt.Label();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
         bg = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-
-        label3.setText("label3");
-
-        jMenu1.setText("jMenu1");
-
-        jMenu2.setText("jMenu2");
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Entrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 80, -1));
 
         jButton2.setText("Cancelar");
@@ -61,7 +68,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
         bg.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 180, 30));
-        bg.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 180, 30));
 
         jLabel1.setText("Usuario");
         bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 60, 30));
@@ -73,11 +79,31 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel3.setText("Bienvenido a \"Body Perfect\"");
         bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 300, 40));
 
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
+        bg.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 180, 30));
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 190, Short.MAX_VALUE)
+        );
+
+        bg.add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 190));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,19 +117,25 @@ public class VistaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ControladorConexion cc = new ControladorConexion(getUsuario(), getPassword());
+        cc.conectarBD();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JOptionPane jOptionPane1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private java.awt.Label label3;
     // End of variables declaration//GEN-END:variables
 }

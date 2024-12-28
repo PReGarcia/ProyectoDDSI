@@ -3,7 +3,9 @@
  */
 package Aplicacion;
 
+import Controlador.ControladorConexion;
 import Controlador.ControladorPrincipal;
+import Vista.VistaConexion;
 import java.util.Scanner;
 
 /**
@@ -13,8 +15,12 @@ import java.util.Scanner;
 public class ProyectoDDSI {
 
     public static void main(String[] args) {
-        ControladorPrincipal cp = new ControladorPrincipal();
-        cp.iniciarVistaSocio();
+        
+        VistaConexion vc = new VistaConexion();
+        vc.main();
+        
+        //ControladorPrincipal cp = new ControladorPrincipal();
+        //cp.iniciarVistaConexion();
         /*int n;
         Scanner input = new Scanner(System.in);
         System.out.println(
