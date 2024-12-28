@@ -14,8 +14,8 @@ public class ProyectoDDSI {
 
     public static void main(String[] args) {
         ControladorPrincipal cp = new ControladorPrincipal();
-        cp.iniciarVistaSocio();
-        /*int n;
+        
+        int n;
         Scanner input = new Scanner(System.in);
         System.out.println(
                 "1-Información de los socios (HQL)" + '\n'
@@ -117,6 +117,6 @@ public class ProyectoDDSI {
                     System.out.println("El numero introducido no esta entre las opciones posibles.Introduce uno valido.");
                 }
             }
-        } while (n < 1 || n > 10);*/
+        } while (n < 1 || n > 10);
     }
 }

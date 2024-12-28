@@ -6,7 +6,6 @@ package Controlador;
 
 import Modelo.*;
 import java.util.List;
-import Vista.*;
 /**
  *
  * @author pareg
@@ -19,7 +18,6 @@ public class ControladorPrincipal {
     private ControladorSocio controladorSocio;
     private ControladorActividad controladorActividad;
     private ControladorMonitor controladorMonitor;
-    private ControladorVistaSocio cvSocio;
     
     public ControladorPrincipal(){
         controladorSocio = new ControladorSocio();
@@ -28,14 +26,6 @@ public class ControladorPrincipal {
         socio = new Socio();
         monitor = new Monitor();
         actividad = new Actividad();
-    }
-    
-    public void iniciarVistaPrincipal(){
-        VistaPrincipal.main();
-    }
-    
-    public void iniciarVistaSocio(){
-        cvSocio = new ControladorVistaSocio(controladorSocio.getAllHQL());
     }
     
     public <T> void mostrarTodos(List<T> lista){
