@@ -1,11 +1,14 @@
 Controlador\GestionTablas.class
 Modelo\ActividadDAO.class
+Vista\VistaActividad$1.class
 Controlador\GestionTablas$3.class
+Vista\VistaFormulario$3.class
 Controlador\ControladorActividad.class
 Vista\VistaPrincipal$2.class
 Vista\VistaConexion.class
 Modelo\SocioDAO.class
 Vista\VistaConexion$1.class
+Vista\VistaFormulario$2.class
 Modelo\Socio.class
 Vista\VistaMensaje.class
 Vista\VistaConexion$3.class
@@ -14,6 +17,7 @@ Vista\VistaPrincipal$1.class
 Vista\VistaMonitor$1.class
 Vista\VistaMonitor.class
 Controlador\GestionTablas$1.class
+Vista\VistaFormulario.class
 Controlador\ControladorSocio.class
 Vista\VistaSocio.class
 Vista\VistaActividad.class
@@ -25,6 +29,7 @@ Controlador\ControladorMonitor.class
 Config\HibernateUtil.class
 Vista\VistaSocio$1.class
 Vista\VistaPrincipal.class
+Vista\VistaFormulario$1.class
 Vista\VistaInicio.class
 Controlador\ControladorPrincipal.class
 Modelo\MonitorDAO.class

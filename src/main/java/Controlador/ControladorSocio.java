@@ -17,53 +17,46 @@ import org.hibernate.Transaction;
  * @author pareg
  */
 public class ControladorSocio {
-    
+
     private VistaSocio vs;
     private VistaMensaje vMensaje;
     private SocioDAO socioDao;
     private Socio socio;
     private ArrayList<Socio> listaSocios;
-    
-    
-    public ControladorSocio(VistaSocio vSocio){
+
+    public ControladorSocio(VistaSocio vSocio) {
         vs = vSocio;
         vMensaje = new VistaMensaje();
-        
+
         socioDao = new SocioDAO();
         socio = new Socio();
         listaSocios = new ArrayList();
-        
+
         GestionTablas.inicializarTablaSocio(vs);
     }
-    
-     public Socio getByName(Session s,String n){
-       socio = socioDao.getByName(s,n);
-       
-       return socio;
+
+    public Socio getByName(Session s, String n) {
+        try {
+            socio = socioDao.getByName(s, n);
+        } catch (Exception ex) {
+            vMensaje.Mensaje(true, "Error en la consulta");
+        }
+        return socio;
     }
-    
-    public ArrayList<Socio> getAll(Session s){      
-        listaSocios = socioDao.getAll(s);
+
+    public ArrayList<Socio> getAll(Session s) {
+        try {
+            listaSocios = socioDao.getAll(s);
+        } catch (Exception ex) {
+            vMensaje.Mensaje(true, "Error en la consulta");
+        }
         return listaSocios;
     }
-    
-    
-    public void tablasSocio(Session s){
+
+    public void tablasSocio(Session s) {
         GestionTablas.dibujarTablaSocio(vs);
-        Transaction tr = s.beginTransaction();
-        try {
-            ArrayList<Socio> lSocios = getAll(s);
-            GestionTablas.vaciarTablaSocio();
-            GestionTablas.rellenarTablaSocio(lSocios);
-        } catch (Exception ex) {
-            tr.rollback();
-            vMensaje.Mensaje(false,true, "Error en la petición de monitores\n" + ex.getMessage());
-        } finally {
-            if (s != null && s.isOpen()) {
-                s.close();
-            }
-        }
+        ArrayList<Socio> lSocios = getAll(s);
+        GestionTablas.vaciarTablaSocio();
+        GestionTablas.rellenarTablaSocio(lSocios);
     }
-    
-   
 }

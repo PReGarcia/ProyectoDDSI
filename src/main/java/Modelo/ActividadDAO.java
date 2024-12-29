@@ -13,37 +13,32 @@ import org.hibernate.query.Query;
  * @author pareg
  */
 public class ActividadDAO {
-    public ArrayList<Actividad> getAll(Session s){
-        ArrayList<Actividad> listaActividades = new ArrayList();
-        try{
-            Query consulta = s.createQuery("FROM Actividad m" , Actividad.class);
-            listaActividades = (ArrayList<Actividad>) consulta.getResultList();
-        }catch(Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (s != null && s.isOpen()) {
-                s.close();
-            }
+    ArrayList<Actividad> listaActividades;
+    Actividad actividad;
+    
+    public String getNextId() {
+        int tam = listaActividades.size() + 1;
+        String s = "A";
+        if (tam < 100) {
+            s = s + "0" + tam;
+        } else {
+            s = s + tam;
         }
+        return s;
+    }
+    
+    public ArrayList<Actividad> getAll(Session s) throws Exception{
+        Query consulta = s.createQuery("FROM Actividad m" , Actividad.class);
+        listaActividades = (ArrayList<Actividad>) consulta.getResultList();
+        
         return listaActividades;
     }
     
-    public ArrayList<Actividad> getByDiaCuota(Session s,String d, int c){
-        ArrayList<Actividad> listaActividades = new ArrayList();
-        try {
-            Query consulta = s.createQuery("SELECT m FROM Actividad m WHERE m.dia= :dia AND m.precioBaseMes > :cuota" , Actividad.class);
-            consulta.setParameter("dia", d);
-            consulta.setParameter("cuota", c);
-            listaActividades = (ArrayList<Actividad>) consulta.getResultList();
-        } catch (Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (s != null && s.isOpen()) {
-                s.close();
-            }
-        }
+    public ArrayList<Actividad> getByDiaCuota(Session s,String d, int c) throws Exception{
+        Query consulta = s.createQuery("SELECT m FROM Actividad m WHERE m.dia= :dia AND m.precioBaseMes > :cuota" , Actividad.class);
+        consulta.setParameter("dia", d);
+        consulta.setParameter("cuota", c);
+        listaActividades = (ArrayList<Actividad>) consulta.getResultList();
         return listaActividades;
     }
 }

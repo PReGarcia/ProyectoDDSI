@@ -4,9 +4,7 @@
  */
 package Modelo;
 
-import Config.HibernateUtil;
 import java.util.ArrayList;
-import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -15,35 +13,41 @@ import org.hibernate.query.Query;
  * @author pareg
  */
 public class MonitorDAO {
-    public ArrayList<Monitor> getAll(Session s){
-        ArrayList<Monitor> listaMonitores = new ArrayList();
-        try {
-            Query consulta = s.createQuery("FROM Monitor m" , Monitor.class);
-            listaMonitores = (ArrayList<Monitor>) consulta.getResultList();
-        } catch (Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (s != null && s.isOpen()) {
-                s.close();
-            }
+
+    Monitor monitor;
+    ArrayList<Monitor> listaMonitores;
+    Query consulta;
+
+    public String getNextId() {
+        int tam = listaMonitores.size() + 1;
+        String s = "M";
+        if (tam < 100) {
+            s = s + "0" + tam;
+        } else {
+            s = s + tam;
         }
+        return s;
+    }
+
+    public void borrarMonitor(Session s, Monitor m) throws Exception {
+        s.delete(m);
+    }
+
+    public void insertaMonitor(Session s, Monitor m) throws Exception {
+        s.saveOrUpdate(m);
+    }
+
+    public ArrayList<Monitor> getAll(Session s) throws Exception {
+        consulta = s.createQuery("FROM Monitor m", Monitor.class);
+        listaMonitores = (ArrayList<Monitor>) consulta.getResultList();
+
         return listaMonitores;
     }
-    
-    public Monitor getByNick(Session s, String n){
-        Monitor monitor = new Monitor();
-         try {
-            Query consulta = s.createQuery("FROM Monitor m WHERE nick='n'" , Monitor.class);
-            monitor = (Monitor) consulta.getSingleResult();
-        } catch (Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (s != null && s.isOpen()) {
-                s.close();
-            }
-        }
+
+    public Monitor getByCodigo(Session s, String n) throws Exception {
+        consulta = s.createQuery("FROM Monitor m WHERE codMonitor='n'", Monitor.class);
+        monitor = (Monitor) consulta.getSingleResult();
+
         return monitor;
     }
 }

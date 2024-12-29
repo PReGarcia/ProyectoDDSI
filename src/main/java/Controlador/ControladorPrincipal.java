@@ -4,27 +4,24 @@
  */
 package Controlador;
 
-import Modelo.Monitor;
-import Modelo.MonitorDAO;
 import Vista.*;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.JPanel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
 /**
  *
  * @author pareg
  */
-public class ControladorPrincipal implements ActionListener{
-    
+public class ControladorPrincipal implements ActionListener {
+
     private ControladorMonitor cm;
     private ControladorSocio cs;
     private ControladorActividad ca;
-    
+
     private VistaPrincipal vPrincipal;
     private VistaInicio vInicio;
     private VistaActividad vActividad;
@@ -32,32 +29,31 @@ public class ControladorPrincipal implements ActionListener{
     private VistaMonitor vMonitor;
     private VistaMensaje vMensaje;
     private CardLayout cl;
-    
-    private SessionFactory sessionFactory;
+
     private Session sesion;
+    private SessionFactory sessionFactory;
     private Transaction tr;
-            
-    
-    public ControladorPrincipal(SessionFactory s){
+
+    public ControladorPrincipal(SessionFactory s) {
         vPrincipal = new VistaPrincipal();
         vInicio = new VistaInicio();
-        vActividad  = new VistaActividad();
+        vActividad = new VistaActividad();
         vSocio = new VistaSocio();
         vMonitor = new VistaMonitor();
         vMensaje = new VistaMensaje();
         cl = new CardLayout();
-        
-        cm = new ControladorMonitor(vMonitor);
-        ca = new ControladorActividad(vActividad);
-        cs = new ControladorSocio(vSocio);
-        
+
         sessionFactory = s;
         
+        cm = new ControladorMonitor(vMonitor, sessionFactory);
+        ca = new ControladorActividad(vActividad);
+        cs = new ControladorSocio(vSocio);
+
         vPrincipal.getContentPane().setLayout(cl);
         vPrincipal.add(vInicio, "Inicio");
         vPrincipal.add(vMonitor, "Monitor");
         vPrincipal.add(vSocio, "Socio");
-        vPrincipal.add(vActividad, "Actividad");        
+        vPrincipal.add(vActividad, "Actividad");
 
         vPrincipal.setLocationRelativeTo(null);
         vPrincipal.setVisible(true);
@@ -65,43 +61,73 @@ public class ControladorPrincipal implements ActionListener{
         addListeners();
         muestraPanel("Inicio");
     }
-    
-    public void muestraPanel(String s){
+
+    public void muestraPanel(String s) {
         cl.show(vPrincipal.getContentPane(), s);
     }
-    
-    private void addListeners(){
+
+    private void addListeners() {
         vPrincipal.GestionMonitor.addActionListener(this);
         vPrincipal.GestionActividad.addActionListener(this);
         vPrincipal.GestionSocio.addActionListener(this);
         vPrincipal.Salir.addActionListener(this);
         vPrincipal.Inicio.addActionListener(this);
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch(e.getActionCommand()){
-            case "Inicio" ->{
+        switch (e.getActionCommand()) {
+            case "Inicio" -> {
                 muestraPanel("Inicio");
             }
-            case "Salir" ->{
-                vMensaje.Mensaje(false,false,  "Salida correcta de la aplicaion");
+            case "Salir" -> {
+                vMensaje.Mensaje(false, "Salida correcta de la aplicaion");
                 System.exit(0);
             }
-            case "GestionActividad" ->{
+            case "GestionActividad" -> {
                 muestraPanel("Actividad");
                 sesion = sessionFactory.openSession();
-                ca.tablasActividad(sesion);
+                Transaction tr = sesion.beginTransaction();
+                try {
+                    ca.tablasActividad(sesion);
+                } catch (Exception ex) {
+                    tr.rollback();
+                    vMensaje.Mensaje(true, "Error en la petición de actividades\n" + ex.getMessage());
+                } finally {
+                    if (sesion != null && sesion.isOpen()) {
+                        sesion.close();
+                    }
+                }
             }
-            case "GestionMonitor"->{
+            case "GestionMonitor" -> {
                 muestraPanel("Monitor");
                 sesion = sessionFactory.openSession();
-                cm.tablasMonitor(sesion);
+                Transaction tr = sesion.beginTransaction();
+                try {
+                    cm.tablasMonitor(sesion);
+                } catch (Exception ex) {
+                    tr.rollback();
+                    vMensaje.Mensaje(true, "Error en la petición de monitores\n" + ex.getMessage());
+                } finally {
+                    if (sesion != null && sesion.isOpen()) {
+                        sesion.close();
+                    }
+                }
             }
-            case "GestionSocio"->{
+            case "GestionSocio" -> {
                 muestraPanel("Socio");
                 sesion = sessionFactory.openSession();
-                cs.tablasSocio(sesion);
+                Transaction tr = sesion.beginTransaction();
+                try {
+                    cs.tablasSocio(sesion);
+                } catch (Exception ex) {
+                    tr.rollback();
+                    vMensaje.Mensaje(true, "Error en la petición de socios\n" + ex.getMessage());
+                } finally {
+                    if (sesion != null && sesion.isOpen()) {
+                        sesion.close();
+                    }
+                }
             }
         }
     }

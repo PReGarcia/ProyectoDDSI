@@ -16,20 +16,27 @@ public class VistaMensaje extends javax.swing.JFrame {
     public VistaMensaje() {
         initComponents();
     }
-    
-    public void Mensaje(boolean ventana, boolean tipo, String texto){
-        if(ventana){
-            jOptionPane1.showConfirmDialog(null,texto,"Confirmación",jOptionPane1.YES_NO_OPTION, jOptionPane1.QUESTION_MESSAGE);
-        }else{
-            if(!tipo){
-                jOptionPane1.showMessageDialog(null, texto, null, jOptionPane1.INFORMATION_MESSAGE);
-            }
-            else{
-                jOptionPane1.showMessageDialog(null, texto, null, jOptionPane1.ERROR_MESSAGE);
-            }
+
+    public boolean Confirm(String t) {
+        if(jOptionPane1.showConfirmDialog(null, t, "Confirmación", jOptionPane1.OK_CANCEL_OPTION, jOptionPane1.QUESTION_MESSAGE) == 0)
+            return true;
+        else
+            return false;
+    }
+
+    public void Mensaje(boolean tipo, String texto) {
+        if (!tipo) {
+            jOptionPane1.showMessageDialog(null, texto, null, jOptionPane1.INFORMATION_MESSAGE);
+        } else {
+            jOptionPane1.showMessageDialog(null, texto, null, jOptionPane1.ERROR_MESSAGE);
         }
     }
 
+    public void Form(){
+        jOptionPane1.showInputDialog("Nombre");
+        jOptionPane1.showInputDialog("DNI");
+        jOptionPane1.showInputDialog("Sexo");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
