@@ -75,6 +75,7 @@ public class VistaConexion extends javax.swing.JFrame {
         cancelar.setText("Cancelar");
         bg.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 80, -1));
 
+        jTextField1.setText("DDSI_076");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -92,6 +93,7 @@ public class VistaConexion extends javax.swing.JFrame {
         jLabel3.setText("Bienvenido a \"Body Perfect\"");
         bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 300, 40));
 
+        jPasswordField1.setText("DDSI_076");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);

@@ -17,12 +17,16 @@ public class VistaMensaje extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void Mensaje(String s, String t){
-        if(s == "info"){
-            jOptionPane1.showMessageDialog(null, t, null, jOptionPane1.INFORMATION_MESSAGE);
-        }
-        else{
-            jOptionPane1.showMessageDialog(null, t, null, jOptionPane1.ERROR_MESSAGE);
+    public void Mensaje(boolean ventana, boolean tipo, String texto){
+        if(ventana){
+            jOptionPane1.showConfirmDialog(null,texto,"Confirmación",jOptionPane1.YES_NO_OPTION, jOptionPane1.QUESTION_MESSAGE);
+        }else{
+            if(!tipo){
+                jOptionPane1.showMessageDialog(null, texto, null, jOptionPane1.INFORMATION_MESSAGE);
+            }
+            else{
+                jOptionPane1.showMessageDialog(null, texto, null, jOptionPane1.ERROR_MESSAGE);
+            }
         }
     }
 

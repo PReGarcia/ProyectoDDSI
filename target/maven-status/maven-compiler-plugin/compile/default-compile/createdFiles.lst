@@ -1,4 +1,6 @@
+Controlador\GestionTablas.class
 Modelo\ActividadDAO.class
+Controlador\GestionTablas$3.class
 Controlador\ControladorActividad.class
 Vista\VistaPrincipal$2.class
 Vista\VistaConexion.class
@@ -9,15 +11,19 @@ Vista\VistaMensaje.class
 Vista\VistaConexion$3.class
 Controlador\ControladorConexion.class
 Vista\VistaPrincipal$1.class
+Vista\VistaMonitor$1.class
 Vista\VistaMonitor.class
+Controlador\GestionTablas$1.class
 Controlador\ControladorSocio.class
 Vista\VistaSocio.class
 Vista\VistaActividad.class
+Controlador\GestionTablas$2.class
 Aplicacion\ProyectoDDSI.class
 Vista\VistaConexion$2.class
 Modelo\Actividad.class
 Controlador\ControladorMonitor.class
 Config\HibernateUtil.class
+Vista\VistaSocio$1.class
 Vista\VistaPrincipal.class
 Vista\VistaInicio.class
 Controlador\ControladorPrincipal.class

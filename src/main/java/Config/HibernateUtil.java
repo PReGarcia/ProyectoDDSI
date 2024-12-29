@@ -34,8 +34,8 @@ public class HibernateUtil{
                     .applySetting("hibernate.connection.username", ControladorConexion.user)
                     .applySetting("hibernate.connection.password", ControladorConexion.pass)
                     .applySetting("hibernate.connection.url",
-                            "jdbc:mariadb//172.18.1.241:3306/" + ControladorConexion.user).build();
-            
+                            "jdbc:mariadb://172.18.1.241:3306/" + ControladorConexion.user).build();
+                      
             Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
             return metadata.getSessionFactoryBuilder().build();
         } catch (HibernateException e) {

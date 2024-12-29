@@ -4,9 +4,7 @@
  */
 package Modelo;
 
-import Config.HibernateUtil;
 import java.util.ArrayList;
-import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -16,141 +14,34 @@ import org.hibernate.query.Query;
  */
 public class SocioDAO {
 
-    public Socio getByName(String n) {
+    public Socio getByName(Session s,String n) {
         Socio socio = null;
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
         try {
-            Query consulta = sesion.createQuery("FROM Socio s WHERE s.nombre LIKE: parametro" , Socio.class);
+            Query consulta = s.createQuery("FROM Socio s WHERE s.nombre LIKE: parametro" , Socio.class);
             consulta.setParameter("parametro", n);
             socio = (Socio) consulta.getSingleResult();
         } catch (Exception e) {
             System.out.println("Error en la recuperación "
                     + e.getMessage());
         } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
+            if (s != null && s.isOpen()) {
+                s.close();
             }
         }
         return socio;
     }
     
-    public List<Socio> getAllHQL(){
-        List<Socio> listaSocios = new ArrayList();
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
+    public ArrayList<Socio> getAll(Session s){
+        ArrayList<Socio> listaSocios = new ArrayList();
         try {
-            Query consulta = sesion.createQuery("FROM Socio m" , Socio.class);
+            Query consulta = s.createQuery("FROM Socio s" , Socio.class);
             listaSocios = (ArrayList<Socio>) consulta.getResultList();
         } catch (Exception e) {
             System.out.println("Error en la recuperación "
                     + e.getMessage());
         } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
-        }
-        return listaSocios;
-    }
-    
-    public List<Socio> getAllSQL(){
-        List<Socio> listaSocios = new ArrayList();
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        try {
-            Query consulta = sesion.createQuery("SELECT * FROM Socio" , Socio.class);
-            listaSocios = (ArrayList<Socio>) consulta.getResultList();
-        } catch (Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
-        }
-        return listaSocios;
-    }
-    
-    public List<Socio> getAllConsultaNombrada(){
-        List<Socio> listaSocios = new ArrayList();
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        try {
-            Query consulta = sesion.createNamedQuery("Socio.findAll" , Socio.class);
-            listaSocios = (ArrayList<Socio>) consulta.getResultList();
-        } catch (Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
-        }
-        return listaSocios;
-    }
-    
-    public List<Object[]> getNomTel(){
-        List<Object[]> listaSocios = new ArrayList();
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        try {
-            Query consulta = sesion.createQuery("SELECT nombre,telefono FROM Socio");
-            listaSocios = (ArrayList<Object[]>) consulta.getResultList();
-        } catch (Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
-        }
-        return listaSocios;
-    }
-    
-    public List<Socio> getByCategoria(char cat){
-        List<Socio> listaSocios = new ArrayList();
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        try {
-            Query consulta = sesion.createQuery("SELECT s FROM Socio s WHERE categoria= :cat", Socio.class);
-            consulta.setParameter("cat", cat);
-            listaSocios = (ArrayList<Socio>) consulta.getResultList();
-        } catch (Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
-        }
-        return listaSocios;
-    }
-    
-    public List<Socio> getByCategoriaNamedQuery(char c){
-        List<Socio> listaSocios = new ArrayList();
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        try {
-            Query consulta = sesion.createNamedQuery("Socio.findByCategoria", Socio.class);
-            consulta.setParameter("categoria", c);
-            listaSocios = (ArrayList<Socio>) consulta.getResultList();
-        } catch (Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
-        }
-        return listaSocios;
-    }
-    
-    public List<Socio> getByCategoriaSQL(char c){
-        List<Socio> listaSocios = new ArrayList();
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        try {
-            Query consulta = sesion.createQuery("SELECT s FROM Socio WHERE s.categoria= :c ", Socio.class);
-            consulta.setParameter("categoria", c);
-            listaSocios = (ArrayList<Socio>) consulta.getResultList();
-        } catch (Exception e) {
-            System.out.println("Error en la recuperación "
-                    + e.getMessage());
-        } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
+            if (s != null && s.isOpen()) {
+                s.close();
             }
         }
         return listaSocios;

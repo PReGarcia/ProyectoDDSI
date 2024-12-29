@@ -32,14 +32,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
+        JMenu1 = new javax.swing.JMenu();
+        Inicio = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        GestionMonitor = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        GestionSocio = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
+        GestionActividad = new javax.swing.JMenuItem();
+        JMenu8 = new javax.swing.JMenu();
+        Salir = new javax.swing.JMenuItem();
 
         label3.setText("label3");
 
@@ -52,42 +54,57 @@ public class VistaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestión del Gimnasio \"Body Perfect\"");
 
-        jMenu3.setText("Inicio");
-        jMenuBar1.add(jMenu3);
+        JMenu1.setText("Inicio");
+        JMenu1.setActionCommand("nada");
+
+        Inicio.setText("Volver a la página principal");
+        Inicio.setActionCommand("Inicio");
+        JMenu1.add(Inicio);
+
+        jMenuBar1.add(JMenu1);
 
         jMenu4.setText("Monitores");
 
-        jMenuItem1.setText("Gestión de monitores");
-        jMenu4.add(jMenuItem1);
+        GestionMonitor.setText("Gestión de monitores");
+        GestionMonitor.setActionCommand("GestionMonitor");
+        jMenu4.add(GestionMonitor);
 
         jMenuBar1.add(jMenu4);
 
         jMenu6.setText("Socios");
 
-        jMenuItem2.setText("Gestión de socios");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        GestionSocio.setText("Gestión de socios");
+        GestionSocio.setActionCommand("GestionSocio");
+        GestionSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                GestionSocioActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem2);
+        jMenu6.add(GestionSocio);
 
         jMenuBar1.add(jMenu6);
 
         jMenu7.setText("Actividades");
 
-        jMenuItem3.setText("Gestión de actividades");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        GestionActividad.setText("Gestión de actividades");
+        GestionActividad.setActionCommand("GestionActividad");
+        GestionActividad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                GestionActividadActionPerformed(evt);
             }
         });
-        jMenu7.add(jMenuItem3);
+        jMenu7.add(GestionActividad);
 
         jMenuBar1.add(jMenu7);
 
-        jMenu8.setText("Salir");
-        jMenuBar1.add(jMenu8);
+        JMenu8.setText("Salir");
+        JMenu8.setActionCommand("nada2");
+
+        Salir.setText("Salir de la aplicación");
+        Salir.setActionCommand("Salir");
+        JMenu8.add(Salir);
+
+        jMenuBar1.add(JMenu8);
 
         setJMenuBar(jMenuBar1);
 
@@ -105,28 +122,30 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void GestionSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionSocioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_GestionSocioActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void GestionActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionActividadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_GestionActividadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JMenuItem GestionActividad;
+    public javax.swing.JMenuItem GestionMonitor;
+    public javax.swing.JMenuItem GestionSocio;
+    public javax.swing.JMenuItem Inicio;
+    public javax.swing.JMenu JMenu1;
+    public javax.swing.JMenu JMenu8;
+    public javax.swing.JMenuItem Salir;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JOptionPane jOptionPane1;
     private java.awt.Label label3;
     // End of variables declaration//GEN-END:variables

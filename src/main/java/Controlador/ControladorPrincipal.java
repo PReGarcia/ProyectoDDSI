@@ -4,145 +4,105 @@
  */
 package Controlador;
 
-import Modelo.*;
-import java.util.List;
+import Modelo.Monitor;
+import Modelo.MonitorDAO;
 import Vista.*;
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JPanel;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 /**
  *
  * @author pareg
  */
-public class ControladorPrincipal {
+public class ControladorPrincipal implements ActionListener{
     
-    SessionFactory sessionFactory;
-    /*
-    private Socio socio;
-    private Monitor monitor;
-    private Actividad actividad;
-    private ControladorSocio controladorSocio;
-    private ControladorActividad controladorActividad;
-    private ControladorMonitor controladorMonitor;
-    */
-    VistaPrincipal vPrincipal;
-    VistaInicio vInicio;
-    VistaActividad vActividad;
-    VistaSocio vSocio;
-    VistaMonitor vMonitor;
+    private ControladorMonitor cm;
+    private ControladorSocio cs;
+    private ControladorActividad ca;
+    
+    private VistaPrincipal vPrincipal;
+    private VistaInicio vInicio;
+    private VistaActividad vActividad;
+    private VistaSocio vSocio;
+    private VistaMonitor vMonitor;
+    private VistaMensaje vMensaje;
+    private CardLayout cl;
+    
+    private SessionFactory sessionFactory;
+    private Session sesion;
+    private Transaction tr;
+            
     
     public ControladorPrincipal(SessionFactory s){
-        /*
-        controladorSocio = new ControladorSocio();
-        controladorMonitor = new ControladorMonitor();
-        controladorActividad = new ControladorActividad();
-        socio = new Socio();
-        monitor = new Monitor();
-        actividad = new Actividad();
-        */
+        vPrincipal = new VistaPrincipal();
+        vInicio = new VistaInicio();
+        vActividad  = new VistaActividad();
+        vSocio = new VistaSocio();
+        vMonitor = new VistaMonitor();
+        vMensaje = new VistaMensaje();
+        cl = new CardLayout();
+        
+        cm = new ControladorMonitor(vMonitor);
+        ca = new ControladorActividad(vActividad);
+        cs = new ControladorSocio(vSocio);
+        
         sessionFactory = s;
-        iniciarVistaPrincipal();
-    }
-    
-    public void iniciarVistaPrincipal(){
-        vPrincipal.getContentPane().setLayout(new CardLayout());
-        vPrincipal.add(vInicio);
-        vPrincipal.add(vMonitor);
-        vPrincipal.add(vSocio);
-        vPrincipal.add(vActividad);
         
-        vInicio.setVisible(true);
-        vMonitor.setVisible(false);
-        vSocio.setVisible(false);
-        vActividad.setVisible(false);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-    public <T> void mostrarTodos(List<T> lista){
-        for (T elemento : lista){
-            System.out.println(elemento);
-        }
-    }
-    
-    public void mostrarSociosHQL(){
-        mostrarTodos(controladorSocio.getAllHQL());
-    }
-    
-    public void mostrarSociosSQL(){
-        mostrarTodos(controladorSocio.getAllSQL());
-    }
-    
-    public void mostrarSociosConsultaNombrada(){
-        mostrarTodos(controladorSocio.getAllConsultaNombrada());
-    }
-    
-    public void mostrarNomTelSocios(){
-        List<Object[]> listaSocios = controladorSocio.getNomTel();
-        
-        for (Object[] socioFetch : listaSocios){
-            System.out.println("Nombre: " + socioFetch[0] + '\n' + "Telefono: " + socioFetch[1] + '\n');
-        }
-    }
-    
-    public void mostrarMonitorNick(String n){
-        System.out.println("Nombre: " + controladorMonitor.getByNick(n).getNombre() + '\n');
-    }
-    
-    public void mostrarNombreCategoria(char cat){
-        List<Socio> listaSocios = controladorSocio.getByCategoria(cat);
-        
-        for (Socio socioFetch : listaSocios){
-            System.out.println("Nombre: " + socioFetch.getNombre() + '\n' + "Telefono: " + socioFetch.getCategoria() + '\n');
-        }
-    }
-    
-    public void mostrarSocioPorNombre(String n){
-        socio = controladorSocio.getByName(n);
-        
-        System.out.println(socio);
-    }
-            
-    public void mostrarActividadDiaCuota(String d, int c){
+        vPrincipal.getContentPane().setLayout(cl);
+        vPrincipal.add(vInicio, "Inicio");
+        vPrincipal.add(vMonitor, "Monitor");
+        vPrincipal.add(vSocio, "Socio");
+        vPrincipal.add(vActividad, "Actividad");        
 
-        List<Actividad> listaActividades = controladorActividad.getByDiaCuota(d,c);
-        
-        for (Actividad actividadFetch : listaActividades){
-            System.out.println(actividadFetch);
+        vPrincipal.setLocationRelativeTo(null);
+        vPrincipal.setVisible(true);
+
+        addListeners();
+        muestraPanel("Inicio");
+    }
+    
+    public void muestraPanel(String s){
+        cl.show(vPrincipal.getContentPane(), s);
+    }
+    
+    private void addListeners(){
+        vPrincipal.GestionMonitor.addActionListener(this);
+        vPrincipal.GestionActividad.addActionListener(this);
+        vPrincipal.GestionSocio.addActionListener(this);
+        vPrincipal.Salir.addActionListener(this);
+        vPrincipal.Inicio.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch(e.getActionCommand()){
+            case "Inicio" ->{
+                muestraPanel("Inicio");
+            }
+            case "Salir" ->{
+                vMensaje.Mensaje(false,false,  "Salida correcta de la aplicaion");
+                System.exit(0);
+            }
+            case "GestionActividad" ->{
+                muestraPanel("Actividad");
+                sesion = sessionFactory.openSession();
+                ca.tablasActividad(sesion);
+            }
+            case "GestionMonitor"->{
+                muestraPanel("Monitor");
+                sesion = sessionFactory.openSession();
+                cm.tablasMonitor(sesion);
+            }
+            case "GestionSocio"->{
+                muestraPanel("Socio");
+                sesion = sessionFactory.openSession();
+                cs.tablasSocio(sesion);
+            }
         }
     }
-    public void mostrarCategoriaNamedQuery(char c){
- 
-        List<Socio> listaSocios = controladorSocio.getByCategoriaNamedQuery(c);
-        
-        for (Socio socioFetch : listaSocios){
-            System.out.println(socioFetch);
-        }
-    }
-    */
 }

@@ -41,13 +41,14 @@ public class ControladorConexion implements ActionListener{
     public SessionFactory conectarBD(){
         sessionFactory = HibernateUtil.buildSessionFactory();
         if(sessionFactory == null){
-            vMensaje.Mensaje("error", "Error al introducir las credenciales");
+            vMensaje.Mensaje(false,true, "Error al introducir las credenciales");
+            vConexion.dispose();
+            System.exit(0);
         }else{
-            vMensaje.Mensaje("info", """
+            vMensaje.Mensaje(false,false, """
                                       Conexion correcta con hibernate
                                       Va a acceder a la aplicaci\u00f3n""");
             vConexion.dispose();
-            System.exit(0);
         }
         return sessionFactory;
     }
@@ -59,11 +60,10 @@ public class ControladorConexion implements ActionListener{
                 user = vConexion.jTextField1.getText();
                 pass = new String(vConexion.jPasswordField1.getPassword());
                 sessionFactory = conectarBD();
-                vConexion.dispose();
                 controladorP = new ControladorPrincipal(sessionFactory);
             }
             case "Cancelar" -> {
-                vMensaje.Mensaje( "info", "Salida correta de la aplicaion");
+                vMensaje.Mensaje( false,false, "Salida correcta de la aplicaion");
                 System.exit(0);
             }
         }
