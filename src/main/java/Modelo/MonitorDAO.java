@@ -33,10 +33,10 @@ public class MonitorDAO {
         s.delete(m);
     }
 
-    public void insertaMonitor(Session s, Monitor m) throws Exception {
+    public void insertaActualizaMonitor(Session s, Monitor m) throws Exception {
         s.saveOrUpdate(m);
     }
-
+    
     public ArrayList<Monitor> getAll(Session s) throws Exception {
         consulta = s.createQuery("FROM Monitor m", Monitor.class);
         listaMonitores = (ArrayList<Monitor>) consulta.getResultList();

@@ -4,15 +4,17 @@
  */
 package Controlador;
 
-import Config.HibernateUtil;
 import Modelo.Monitor;
 import Modelo.MonitorDAO;
-import Vista.VistaFormulario;
+import Vista.VistaFormularioMonitor;
 import Vista.VistaMensaje;
 import Vista.VistaMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -30,21 +32,20 @@ public class ControladorMonitor implements ActionListener {
 
     private VistaMonitor vm;
     private VistaMensaje vMensaje;
-    private VistaFormulario vFormulario;
+    private VistaFormularioMonitor vFormulario;
 
     private SessionFactory sessionFactory;
     private Session sesion;
     private Transaction tr;
-    
 
     public ControladorMonitor(VistaMonitor vMonitor, SessionFactory s) {
         monitorDao = new MonitorDAO();
-        
+
         sessionFactory = s;
         sesion = sessionFactory.openSession();
         listaMonitores = new ArrayList();
 
-        vFormulario = new VistaFormulario();
+        vFormulario = new VistaFormularioMonitor();
         vm = vMonitor;
         vMensaje = new VistaMensaje();
 
@@ -57,50 +58,72 @@ public class ControladorMonitor implements ActionListener {
         vm.Eliminar.addActionListener(this);
         vm.Actualizar.addActionListener(this);
         vm.Insertar.addActionListener(this);
+        vFormulario.insertarForm.addActionListener(this);
+        vFormulario.Cancelar.addActionListener(this);
     }
 
-    private ArrayList<Monitor> getAll(Session s) {
+    private ArrayList<Monitor> getAll() {
+        sesion = sessionFactory.openSession();
+        tr = sesion.beginTransaction();
         try {
-            listaMonitores = monitorDao.getAll(s);
+            listaMonitores = monitorDao.getAll(sesion);
         } catch (Exception ex) {
             vMensaje.Mensaje(true, "Error en la consulta");
+        }finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
         }
         return listaMonitores;
     }
+    
+    private Monitor getByCod(String id){
+        sesion = sessionFactory.openSession();
+        tr = sesion.beginTransaction();
+        try {
+            monitor = (Monitor) sesion.get(Monitor.class, id);
+        }catch(Exception ex){
+            tr.rollback();
+            vMensaje.Mensaje(true, ex.getMessage());
+        }finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
+        return monitor;
+    }
 
     private void altaMonitor(Monitor m) {
-        sesion = HibernateUtil.getSessionFactory().openSession();
+        sesion = sessionFactory.openSession();
+        tr = sesion.beginTransaction();
         try {
-            tr = sesion.beginTransaction();
-            monitor = new Monitor();
-
-            monitorDao.insertaMonitor(sesion, monitor);
+            monitorDao.insertaActualizaMonitor(sesion, m);
             tr.commit();
             vMensaje.Mensaje(false, "Monitor insertado correctamente");
         } catch (Exception ex) {
             tr.rollback();
-            vMensaje.Mensaje(true, "Error en la inserción del monitor");
+            vMensaje.Mensaje(true, ex.getMessage());
         } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
             }
         }
     }
-    
-    private void borrarMonitor(String id){
-        sesion = HibernateUtil.getSessionFactory().openSession();
+
+    private void borrarMonitor(String id) {
+        sesion = sessionFactory.openSession();
         tr = sesion.beginTransaction();
         try {
-            monitor = (Monitor) monitorDao.getByCodigo(sesion, id);
- 
+            monitor = (Monitor) sesion.get(Monitor.class, id);
+            System.out.println(monitor);
+
             monitorDao.borrarMonitor(sesion, monitor);
-            
-            
+
             tr.commit();
             vMensaje.Mensaje(false, "Monitor borrado correctamente");
         } catch (Exception ex) {
             tr.rollback();
-            vMensaje.Mensaje(true, "Error en el borrado del monitor");
+            vMensaje.Mensaje(true, ex.getMessage());
         } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
@@ -108,11 +131,22 @@ public class ControladorMonitor implements ActionListener {
         }
     }
     
-    public void tablasMonitor(Session s) {
-        GestionTablas.dibujarTablaMonitor(vm);
-        ArrayList<Monitor> lMonitores = getAll(s);
-        GestionTablas.vaciarTablaMonitor();
-        GestionTablas.rellenarTablaMonitor(lMonitores);
+    public void tablasMonitor(){
+        sesion = sessionFactory.openSession();
+        tr = sesion.beginTransaction();
+        try {
+            GestionTablas.dibujarTablaMonitor(vm);
+            ArrayList<Monitor> lMonitores = getAll();
+            GestionTablas.vaciarTablaMonitor();
+            GestionTablas.rellenarTablaMonitor(lMonitores);
+        } catch (Exception ex) {
+            tr.rollback();
+            vMensaje.Mensaje(false, "Error en la consulta para las tablas");
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
     }
 
     @Override
@@ -122,34 +156,47 @@ public class ControladorMonitor implements ActionListener {
                 if (vm.jTableMonitor.getSelectedRow() == -1) {
                     vMensaje.Mensaje(true, "Selecciona primero una columna");
                 } else {
-                    if (vMensaje.Confirm("¿Estás seguro de eliminar a "+ vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(),0) + vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(), 1) + "?")) {
+                    if (vMensaje.Confirm("¿Estás seguro de eliminar a " + vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(), 0) + vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(), 1) + "?")) {
                         String num = (String) vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(), 0);
                         borrarMonitor(num);
-                    } else {
-                        System.out.println("Se cancela el borrado");
-                    }
-                }
-            }
-            
-            case "Actualizar" -> {
-                vm.jTableMonitor.getSelectedRow();
-            }
-            
-            case "Insertar" -> {
-                vFormulario.Form(monitorDao.getNextId());
-                vFormulario.setVisible(true);
-                switch (e.getActionCommand()) {
-                    case "Insertar" -> {
-                        monitor = new Monitor(monitorDao.getNextId(), vFormulario.Nombre.getText(), vFormulario.DNI.getText(), vFormulario.Telefono.getText(), vFormulario.Correo.getText(), vFormulario.Fecha.getDateFormatString(), vFormulario.Nick.getText());
-                        altaMonitor(monitor);
-                    }
-                    
-                    case "Cancelar" -> {
-                        vFormulario.dispose();
+                        tablasMonitor();
                     }
                 }
             }
 
+            case "Actualizar" -> {
+                if (vm.jTableMonitor.getSelectedRow() == -1) {
+                    vMensaje.Mensaje(true, "Selecciona primero una columna");
+                } else {
+                    monitor = getByCod((String)vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(), 0)) ;
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
+                    try{
+                        Date d = sdf.parse(monitor.getFechaEntrada());
+                        vFormulario.Form(monitor.getCodMonitor(),monitor.getNombre(),monitor.getDni(),monitor.getTelefono(),monitor.getCorreo(),d,monitor.getNick());
+                    }catch(ParseException ex){
+                        vMensaje.Mensaje(true, ex.getMessage());
+                    }
+                    
+                    vFormulario.setVisible(true);
+                }
+            }
+
+            case "Insertar" -> {
+                vFormulario.Form(monitorDao.getNextId());
+                vFormulario.setVisible(true);
+            }
+            case "insertarForm" -> {
+                monitor = new Monitor(vFormulario.Codigo.getText(), vFormulario.Nombre.getText(), vFormulario.DNI.getText(), vFormulario.Telefono.getText(), vFormulario.Correo.getText(), vFormulario.Fecha.getDateFormatString(), vFormulario.Nick.getText());
+                altaMonitor(monitor);
+                vFormulario.dispose();
+                tablasMonitor();
+            }
+
+            case "Cancelar" -> {
+                vFormulario.dispose();
+            }
         }
+
     }
 }
+

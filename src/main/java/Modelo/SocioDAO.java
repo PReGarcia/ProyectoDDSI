@@ -16,6 +16,14 @@ public class SocioDAO {
 
     ArrayList<Socio> listaSocios;
     Socio socio;
+    
+    public void insertaActualizaSocio(Session sesion, Socio s) throws Exception{
+        sesion.saveOrUpdate(s);
+    }
+    
+    public void borrarSocio(Session sesion, Socio s) throws Exception{
+        sesion.delete(s);
+    }
 
     public String getNextId() {
         int tam = listaSocios.size() + 1;

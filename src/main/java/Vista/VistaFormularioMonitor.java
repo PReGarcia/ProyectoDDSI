@@ -4,22 +4,43 @@
  */
 package Vista;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 /**
  *
  * @author pareg
  */
-public class VistaFormulario extends javax.swing.JDialog {
+public class VistaFormularioMonitor extends javax.swing.JDialog {
 
     /**
      * Creates new form Formulario
      */
-    public VistaFormulario() {
+    public VistaFormularioMonitor() {
         //super(parent, modal);
         initComponents();
     }
     
-    public void Form(String s){
-        Codigo.setText(s);
+    public void Form(String c,String n,String d, String t, String e, Date fe, String a){
+        Form(c);
+        Nombre.setText(n);
+        DNI.setText(d);
+        Telefono.setText(t);
+        Correo.setText(e);      
+        Fecha.setDate(fe);
+        Nick.setText(a);
+    }
+    
+    public void Form(String c){
+        Codigo.setText(c);
+        Nombre.setText("");
+        DNI.setText("");
+        Telefono.setText("");
+        Correo.setText("");
+        Fecha.setDate(new Date(124,1,1));
+        Nick.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -41,16 +62,17 @@ public class VistaFormulario extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Telefono = new javax.swing.JTextField();
+        Telefono = new javax.swing.JFormattedTextField(new Integer(1));
         Correo = new javax.swing.JTextField();
         Nick = new javax.swing.JTextField();
         Fecha = new com.toedter.calendar.JDateChooser();
-        Insertar = new javax.swing.JButton();
+        insertarForm = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
 
         jLabel7.setText("jLabel7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Formulario de monitor");
 
         jLabel1.setText("Código");
 
@@ -80,10 +102,11 @@ public class VistaFormulario extends javax.swing.JDialog {
             }
         });
 
-        Insertar.setText("Insertar");
-        Insertar.addActionListener(new java.awt.event.ActionListener() {
+        insertarForm.setText("Insertar");
+        insertarForm.setActionCommand("insertarForm");
+        insertarForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InsertarActionPerformed(evt);
+                insertarFormActionPerformed(evt);
             }
         });
 
@@ -97,7 +120,7 @@ public class VistaFormulario extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Insertar)
+                        .addComponent(insertarForm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Cancelar))
                     .addGroup(layout.createSequentialGroup()
@@ -113,7 +136,7 @@ public class VistaFormulario extends javax.swing.JDialog {
                                 .addComponent(DNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                                 .addComponent(Telefono, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
+                        .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel5)
@@ -154,7 +177,7 @@ public class VistaFormulario extends javax.swing.JDialog {
                     .addComponent(Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Insertar)
+                    .addComponent(insertarForm)
                     .addComponent(Cancelar))
                 .addGap(20, 20, 20))
         );
@@ -170,9 +193,9 @@ public class VistaFormulario extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_NickActionPerformed
 
-    private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
+    private void insertarFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarFormActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_InsertarActionPerformed
+    }//GEN-LAST:event_insertarFormActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -181,10 +204,10 @@ public class VistaFormulario extends javax.swing.JDialog {
     public javax.swing.JTextField Correo;
     public javax.swing.JTextField DNI;
     public com.toedter.calendar.JDateChooser Fecha;
-    public javax.swing.JButton Insertar;
     public javax.swing.JTextField Nick;
     public javax.swing.JTextField Nombre;
     public javax.swing.JTextField Telefono;
+    public javax.swing.JButton insertarForm;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDayChooser jDayChooser1;

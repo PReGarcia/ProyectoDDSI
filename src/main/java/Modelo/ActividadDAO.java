@@ -16,9 +16,21 @@ public class ActividadDAO {
     ArrayList<Actividad> listaActividades;
     Actividad actividad;
     
+    public boolean esVacio(Actividad actividad){
+        return actividad.getIdActividad().isEmpty() || actividad.getDia().isEmpty() || actividad.getNombre().isEmpty() || actividad.getDescripcion().isEmpty();
+    }
+    
+    public void insertaActualizaActividad(Session sesion, Actividad a) throws Exception{
+        sesion.saveOrUpdate(a);
+    }
+    
+    public void borrarActividad(Session sesion, Actividad a) throws Exception{
+        sesion.delete(a);
+    }
+    
     public String getNextId() {
         int tam = listaActividades.size() + 1;
-        String s = "A";
+        String s = "AC";
         if (tam < 100) {
             s = s + "0" + tam;
         } else {

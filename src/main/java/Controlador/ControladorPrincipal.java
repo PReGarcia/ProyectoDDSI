@@ -44,10 +44,10 @@ public class ControladorPrincipal implements ActionListener {
         cl = new CardLayout();
 
         sessionFactory = s;
-        
+
         cm = new ControladorMonitor(vMonitor, sessionFactory);
-        ca = new ControladorActividad(vActividad);
-        cs = new ControladorSocio(vSocio);
+        ca = new ControladorActividad(vActividad, sessionFactory);
+        cs = new ControladorSocio(vSocio, sessionFactory);
 
         vPrincipal.getContentPane().setLayout(cl);
         vPrincipal.add(vInicio, "Inicio");
@@ -73,7 +73,7 @@ public class ControladorPrincipal implements ActionListener {
         vPrincipal.Salir.addActionListener(this);
         vPrincipal.Inicio.addActionListener(this);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -86,48 +86,15 @@ public class ControladorPrincipal implements ActionListener {
             }
             case "GestionActividad" -> {
                 muestraPanel("Actividad");
-                sesion = sessionFactory.openSession();
-                Transaction tr = sesion.beginTransaction();
-                try {
-                    ca.tablasActividad(sesion);
-                } catch (Exception ex) {
-                    tr.rollback();
-                    vMensaje.Mensaje(true, "Error en la petición de actividades\n" + ex.getMessage());
-                } finally {
-                    if (sesion != null && sesion.isOpen()) {
-                        sesion.close();
-                    }
-                }
+                ca.tablasActividad();
             }
             case "GestionMonitor" -> {
                 muestraPanel("Monitor");
-                sesion = sessionFactory.openSession();
-                Transaction tr = sesion.beginTransaction();
-                try {
-                    cm.tablasMonitor(sesion);
-                } catch (Exception ex) {
-                    tr.rollback();
-                    vMensaje.Mensaje(true, "Error en la petición de monitores\n" + ex.getMessage());
-                } finally {
-                    if (sesion != null && sesion.isOpen()) {
-                        sesion.close();
-                    }
-                }
+                cm.tablasMonitor();
             }
             case "GestionSocio" -> {
                 muestraPanel("Socio");
-                sesion = sessionFactory.openSession();
-                Transaction tr = sesion.beginTransaction();
-                try {
-                    cs.tablasSocio(sesion);
-                } catch (Exception ex) {
-                    tr.rollback();
-                    vMensaje.Mensaje(true, "Error en la petición de socios\n" + ex.getMessage());
-                } finally {
-                    if (sesion != null && sesion.isOpen()) {
-                        sesion.close();
-                    }
-                }
+                cs.tablasSocio();
             }
         }
     }

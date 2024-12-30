@@ -6,10 +6,12 @@ package Controlador;
 
 import Modelo.Socio;
 import Modelo.SocioDAO;
+import Vista.VistaFormularioMonitor;
 import Vista.VistaMensaje;
 import Vista.VistaSocio;
 import java.util.ArrayList;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -24,10 +26,18 @@ public class ControladorSocio {
     private Socio socio;
     private ArrayList<Socio> listaSocios;
 
-    public ControladorSocio(VistaSocio vSocio) {
+    private VistaFormularioMonitor vFormulario;
+
+    private SessionFactory sessionFactory;
+    private Session sesion;
+    private Transaction tr;
+    
+    public ControladorSocio(VistaSocio vSocio, SessionFactory s) {
         vs = vSocio;
         vMensaje = new VistaMensaje();
 
+        sessionFactory = s;
+        
         socioDao = new SocioDAO();
         socio = new Socio();
         listaSocios = new ArrayList();
@@ -53,10 +63,22 @@ public class ControladorSocio {
         return listaSocios;
     }
 
-    public void tablasSocio(Session s) {
-        GestionTablas.dibujarTablaSocio(vs);
-        ArrayList<Socio> lSocios = getAll(s);
-        GestionTablas.vaciarTablaSocio();
-        GestionTablas.rellenarTablaSocio(lSocios);
+    public void tablasSocio() {
+        sesion = sessionFactory.openSession();
+        tr = sesion.beginTransaction();
+        try {
+            GestionTablas.dibujarTablaSocio(vs);
+            ArrayList<Socio> lSocios = getAll(sesion);
+            GestionTablas.vaciarTablaSocio();
+            GestionTablas.rellenarTablaSocio(lSocios);
+        } catch (Exception ex) {
+            tr.rollback();
+            vMensaje.Mensaje(false, "Error en la consulta para las tablas");
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
+
     }
 }
