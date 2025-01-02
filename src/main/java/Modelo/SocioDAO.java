@@ -26,7 +26,9 @@ public class SocioDAO {
     }
     
     public void borrarSocio(Session sesion, Socio s) throws Exception{
+        System.out.println(sesion);
         sesion.delete(s);
+        
     }
 
     public String getNextId() {
@@ -46,4 +48,5 @@ public class SocioDAO {
 
         return listaSocios;
     }
+   
 }

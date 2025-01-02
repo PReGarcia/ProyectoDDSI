@@ -30,6 +30,7 @@ public class VistaFormularioActividad extends javax.swing.JDialog {
     }
     
     public void Form(String c, ArrayList<String> m){
+        Monitor.removeAllItems();
         Codigo.setText(c);
         Nombre.setText("");
         Descripcion.setText("");

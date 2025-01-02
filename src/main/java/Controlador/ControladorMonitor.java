@@ -63,7 +63,6 @@ public class ControladorMonitor implements ActionListener {
         monitorDao = new MonitorDAO();
 
         sessionFactory = s;
-        sesion = sessionFactory.openSession();
         listaMonitores = new ArrayList();
     }
 
@@ -96,7 +95,6 @@ public class ControladorMonitor implements ActionListener {
         try {
             monitor = (Monitor) sesion.get(Monitor.class, id);
         } catch (Exception ex) {
-            tr.rollback();
             vMensaje.Mensaje(vFormulario, true, ex.getMessage());
         } finally {
             if (sesion != null && sesion.isOpen()) {

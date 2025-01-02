@@ -38,6 +38,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         GestionMonitor = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         GestionSocio = new javax.swing.JMenuItem();
+        SocioActividad = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         GestionActividad = new javax.swing.JMenuItem();
         JMenu8 = new javax.swing.JMenu();
@@ -81,6 +82,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu6.add(GestionSocio);
+
+        SocioActividad.setText("Inscripción en actividades");
+        SocioActividad.setActionCommand("SocioActividad");
+        jMenu6.add(SocioActividad);
 
         jMenuBar1.add(jMenu6);
 
@@ -139,6 +144,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenu JMenu1;
     public javax.swing.JMenu JMenu8;
     public javax.swing.JMenuItem Salir;
+    public javax.swing.JMenuItem SocioActividad;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;

@@ -5,6 +5,7 @@
 package Modelo;
 
 import java.util.ArrayList;
+import org.hibernate.LazyInitializationException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -22,7 +23,7 @@ public class ActividadDAO {
         return actividad.getDia().isEmpty() || actividad.getNombre().isEmpty() || actividad.getDescripcion().isEmpty();
     }
     
-    public void insertaActualizaActividad(Session sesion, Actividad a) throws Exception{
+    public void insertaActualizaActividad(Session sesion, Actividad a) throws LazyInitializationException{
         sesion.saveOrUpdate(a);
     }
     
@@ -48,11 +49,10 @@ public class ActividadDAO {
         return listaActividades;
     }
     
-    public ArrayList<Actividad> getByDiaCuota(Session s,String d, int c) throws Exception{
-        Query consulta = s.createQuery("SELECT m FROM Actividad m WHERE m.dia= :dia AND m.precioBaseMes > :cuota" , Actividad.class);
-        consulta.setParameter("dia", d);
-        consulta.setParameter("cuota", c);
-        listaActividades = (ArrayList<Actividad>) consulta.getResultList();
-        return listaActividades;
+    public Actividad getByName(Session s, String n){
+        Query consulta = s.createQuery("From Actividad a where a.nombre = :n", Actividad.class).setParameter("n", n);
+        actividad = (Actividad)consulta.getSingleResult();
+        
+        return actividad;
     }
 }

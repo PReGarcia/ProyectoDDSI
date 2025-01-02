@@ -33,6 +33,7 @@ Vista\VistaFormularioMonitor.class
 Controlador\ControladorMonitor.class
 Config\HibernateUtil.class
 Vista\VistaFormularioMonitor$2.class
+Vista\VistaFormularioSocioActividad.class
 Vista\VistaSocio$1.class
 Vista\VistaPrincipal.class
 Vista\VistaInicio.class

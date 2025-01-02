@@ -17,6 +17,25 @@ public class VistaSocio extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void Actividades(boolean s) {
+        if (s) {
+            Insertar.setVisible(false);
+            Eliminar.setVisible(false);
+            Actualizar.setVisible(false);
+
+            altaSA.setVisible(true);
+            bajaSA.setVisible(true);
+        } else {
+            Insertar.setVisible(true);
+            Eliminar.setVisible(true);
+            Actualizar.setVisible(true);
+
+            altaSA.setVisible(false);
+            bajaSA.setVisible(false);
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,6 +55,8 @@ public class VistaSocio extends javax.swing.JPanel {
         Insertar = new javax.swing.JButton();
         Actualizar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
+        altaSA = new javax.swing.JButton();
+        bajaSA = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,6 +111,12 @@ public class VistaSocio extends javax.swing.JPanel {
             }
         });
 
+        altaSA.setText("Alta");
+        altaSA.setActionCommand("altaSA");
+
+        bajaSA.setText("Baja");
+        bajaSA.setActionCommand("bajaSA");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,8 +133,12 @@ public class VistaSocio extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Actualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Eliminar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Eliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(altaSA)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bajaSA)))
+                .addContainerGap(299, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +151,9 @@ public class VistaSocio extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Insertar)
                     .addComponent(Actualizar)
-                    .addComponent(Eliminar))
+                    .addComponent(Eliminar)
+                    .addComponent(altaSA)
+                    .addComponent(bajaSA))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -134,6 +167,8 @@ public class VistaSocio extends javax.swing.JPanel {
     public javax.swing.JButton Actualizar;
     public javax.swing.JButton Eliminar;
     public javax.swing.JButton Insertar;
+    public javax.swing.JButton altaSA;
+    public javax.swing.JButton bajaSA;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

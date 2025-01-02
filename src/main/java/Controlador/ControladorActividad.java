@@ -6,6 +6,7 @@ package Controlador;
 
 import Modelo.Actividad;
 import Modelo.ActividadDAO;
+import Modelo.Socio;
 import Vista.VistaActividad;
 import Vista.VistaFormularioActividad;
 import Vista.VistaMensaje;
@@ -13,6 +14,9 @@ import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import org.hibernate.LazyInitializationException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -55,6 +59,13 @@ public class ControladorActividad implements ActionListener {
         addListeners();
     }
 
+    public ControladorActividad(SessionFactory s) {
+        actividadDao = new ActividadDAO();
+
+        sessionFactory = s;
+        listaActividades = new ArrayList();
+    }
+
     private void addListeners() {
         vActividad.Eliminar.addActionListener(this);
         vActividad.Actualizar.addActionListener(this);
@@ -67,7 +78,7 @@ public class ControladorActividad implements ActionListener {
         return !actividadDao.esVacio(getAll().stream().filter(x -> (x.getDia().equals(a.getDia()) && x.getHora() == a.getHora() && x.getMonitorResponsable().equals(a.getMonitorResponsable()))).findFirst().orElse(null));
     }
 
-    private void crearActividad(Actividad a) {
+    public void crearActividad(Actividad a) {
         sesion = sessionFactory.openSession();
         tr = sesion.beginTransaction();
         try {
@@ -77,6 +88,44 @@ public class ControladorActividad implements ActionListener {
         } catch (Exception ex) {
             tr.rollback();
             vMensaje.Mensaje(vFormulario, true, ex.getMessage());
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
+    }
+    
+    
+    public Actividad getByName(String n){
+        sesion = sessionFactory.openSession();
+        tr = sesion.beginTransaction();
+        try {
+            actividad =  actividadDao.getByName(sesion,n);
+        } catch (Exception ex) {
+            vMensaje.Mensaje(vActividad, true, ex.getMessage());
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
+        return actividad;
+    }
+    
+    public void altaSocio(Socio s, Actividad a){
+        sesion = sessionFactory.openSession();
+        tr = sesion.beginTransaction();
+        Set<Socio> l = new HashSet();
+        try {
+            l = a.getSocios();
+            
+            
+            l.add(s);
+            a.setSocios(l);
+            actividadDao.insertaActualizaActividad(sesion, a);
+            tr.commit();
+        } catch (LazyInitializationException ex) {
+            tr.rollback();
+            System.out.println(ex.getMessage());
         } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
@@ -93,7 +142,7 @@ public class ControladorActividad implements ActionListener {
             actividadDao.borrarActividad(sesion, actividad);
 
             tr.commit();
-            vMensaje.Mensaje(vActividad, false, "Monitor borrado correctamente");
+            vMensaje.Mensaje(vActividad, false, "Actividad borrada correctamente");
         } catch (Exception ex) {
             tr.rollback();
             vMensaje.Mensaje(vActividad, true, ex.getMessage());
@@ -103,6 +152,7 @@ public class ControladorActividad implements ActionListener {
             }
         }
     }
+
 
     public ArrayList<Actividad> getAll() {
         sesion = sessionFactory.openSession();
@@ -191,13 +241,13 @@ public class ControladorActividad implements ActionListener {
                 actividad.setMonitorResponsable(cMonitor.getByName((String) vFormulario.Monitor.getSelectedItem()));
                 if (actividadDao.esVacio(actividad)) {
                     vMensaje.Mensaje(vFormulario, true, "Llena todos los campos");
-                }else if(esValido(actividad)){
+                } else if (esValido(actividad)) {
                     vMensaje.Mensaje(vFormulario, true, "El monitor no está disponible");
-                }else{
+                } else {
                     crearActividad(actividad);
                     vFormulario.dispose();
                     tablasActividad();
-                }             
+                }
             }
 
             case "Cancelar" -> {

@@ -8,7 +8,6 @@ import Vista.*;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
@@ -16,7 +15,7 @@ import org.hibernate.Transaction;
  *
  * @author pareg
  */
-public class ControladorPrincipal implements ActionListener {
+public final class ControladorPrincipal implements ActionListener {
 
     private ControladorMonitor cm;
     private ControladorSocio cs;
@@ -30,7 +29,6 @@ public class ControladorPrincipal implements ActionListener {
     private VistaMensaje vMensaje;
     private CardLayout cl;
 
-    private Session sesion;
     private SessionFactory sessionFactory;
     private Transaction tr;
 
@@ -72,6 +70,7 @@ public class ControladorPrincipal implements ActionListener {
         vPrincipal.GestionSocio.addActionListener(this);
         vPrincipal.Salir.addActionListener(this);
         vPrincipal.Inicio.addActionListener(this);
+        vPrincipal.SocioActividad.addActionListener(this);
     }
 
     @Override
@@ -94,8 +93,14 @@ public class ControladorPrincipal implements ActionListener {
             }
             case "GestionSocio" -> {
                 muestraPanel("Socio");
+                vSocio.Actividades(false);
                 cs.tablasSocio();
             }
-        }
+            case "SocioActividad" -> {
+                muestraPanel("Socio");
+                vSocio.Actividades(true);
+                cs.tablasSocio();
+            }
+        } 
     }
 }
