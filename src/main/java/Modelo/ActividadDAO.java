@@ -17,7 +17,9 @@ public class ActividadDAO {
     Actividad actividad;
     
     public boolean esVacio(Actividad actividad){
-        return actividad.getIdActividad().isEmpty() || actividad.getDia().isEmpty() || actividad.getNombre().isEmpty() || actividad.getDescripcion().isEmpty();
+        if(actividad == null)
+            return true;
+        return actividad.getDia().isEmpty() || actividad.getNombre().isEmpty() || actividad.getDescripcion().isEmpty();
     }
     
     public void insertaActualizaActividad(Session sesion, Actividad a) throws Exception{

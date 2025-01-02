@@ -9,6 +9,7 @@ import Modelo.ActividadDAO;
 import Vista.VistaActividad;
 import Vista.VistaFormularioActividad;
 import Vista.VistaMensaje;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,12 +21,13 @@ import org.hibernate.Transaction;
  *
  * @author pareg
  */
-public class ControladorActividad implements ActionListener{
+public class ControladorActividad implements ActionListener {
 
     private VistaFormularioActividad vFormulario;
     private VistaActividad vActividad;
     private VistaMensaje vMensaje;
-    
+
+    private ControladorMonitor cMonitor;
     private ActividadDAO actividadDao;
     private Actividad actividad;
     private ArrayList<Actividad> listaActividades;
@@ -34,13 +36,17 @@ public class ControladorActividad implements ActionListener{
     private Session sesion;
     private Transaction tr;
 
-    public ControladorActividad(VistaActividad vActividad, SessionFactory s){
-        this.vActividad  = vActividad;
+    public ControladorActividad(VistaActividad vActividad, SessionFactory s) {
+        this.vActividad = vActividad;
         vMensaje = new VistaMensaje();
         vFormulario = new VistaFormularioActividad();
+        vFormulario.setLocationRelativeTo(null);
+        vFormulario.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        vFormulario.setResizable(false);
 
         sessionFactory = s;
-        
+
+        cMonitor = new ControladorMonitor(sessionFactory);
         actividadDao = new ActividadDAO();
         actividad = new Actividad();
         listaActividades = new ArrayList();
@@ -48,7 +54,7 @@ public class ControladorActividad implements ActionListener{
         GestionTablas.inicializarTablaActividad(this.vActividad);
         addListeners();
     }
-    
+
     private void addListeners() {
         vActividad.Eliminar.addActionListener(this);
         vActividad.Actualizar.addActionListener(this);
@@ -56,17 +62,21 @@ public class ControladorActividad implements ActionListener{
         vFormulario.insertarForm.addActionListener(this);
         vFormulario.Cancelar.addActionListener(this);
     }
-    
+
+    private boolean esValido(Actividad a) {
+        return !actividadDao.esVacio(getAll().stream().filter(x -> (x.getDia().equals(a.getDia()) && x.getHora() == a.getHora() && x.getMonitorResponsable().equals(a.getMonitorResponsable()))).findFirst().orElse(null));
+    }
+
     private void crearActividad(Actividad a) {
         sesion = sessionFactory.openSession();
         tr = sesion.beginTransaction();
         try {
             actividadDao.insertaActualizaActividad(sesion, a);
             tr.commit();
-            vMensaje.Mensaje(false, "Actividad insertado correctamente");
+            vMensaje.Mensaje(vFormulario, false, "Actividad insertado correctamente");
         } catch (Exception ex) {
             tr.rollback();
-            vMensaje.Mensaje(true, ex.getMessage());
+            vMensaje.Mensaje(vFormulario, true, ex.getMessage());
         } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
@@ -74,7 +84,6 @@ public class ControladorActividad implements ActionListener{
         }
     }
 
-    
     private void borrarActividad(String id) {
         sesion = sessionFactory.openSession();
         tr = sesion.beginTransaction();
@@ -84,92 +93,71 @@ public class ControladorActividad implements ActionListener{
             actividadDao.borrarActividad(sesion, actividad);
 
             tr.commit();
-            vMensaje.Mensaje(false, "Monitor borrado correctamente");
+            vMensaje.Mensaje(vActividad, false, "Monitor borrado correctamente");
         } catch (Exception ex) {
             tr.rollback();
-            vMensaje.Mensaje(true, ex.getMessage());
+            vMensaje.Mensaje(vActividad, true, ex.getMessage());
         } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
             }
         }
     }
-    
+
     public ArrayList<Actividad> getAll() {
         sesion = sessionFactory.openSession();
         tr = sesion.beginTransaction();
         try {
             listaActividades = actividadDao.getAll(sesion);
         } catch (Exception ex) {
-            vMensaje.Mensaje(true, "Error en la consulta");
-        }finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
-        }
-        return listaActividades;
-    }
-
-    public ArrayList<Actividad> getByDiaCuota(String d, int c) {
-        sesion = sessionFactory.openSession();
-        tr = sesion.beginTransaction();
-        try {
-            listaActividades = actividadDao.getByDiaCuota(sesion, d, c);
-        } catch (Exception ex) {
-            vMensaje.Mensaje(true, "Error en la consulta");
-        }finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
-        }
-
-        return listaActividades;
-    }
-
-    public void tablasActividad() {
-        sesion = sessionFactory.openSession();
-        tr = sesion.beginTransaction();
-        try {
-            GestionTablas.dibujarTablaActividad(vActividad);
-            ArrayList<Actividad> lActividades = getAll();
-            GestionTablas.vaciarTablaActividad();
-            GestionTablas.rellenarTablaActividad(lActividades);
-        } catch (Exception ex) {
-            tr.rollback();
-            vMensaje.Mensaje(false, "Error en la consulta para las tablas");
+            vMensaje.Mensaje(vActividad, true, "Error en la consulta");
         } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
             }
         }
-
+        return listaActividades;
     }
-    
-    private Actividad getByCod(String id){
+
+    private ArrayList<String> getMonitores() {
+        ArrayList<String> lMonitores = new ArrayList();
+        cMonitor.getAll().stream().forEach(x -> {
+            lMonitores.add(x.getNombre());
+        });
+        return lMonitores;
+    }
+
+    public void tablasActividad() {
+        GestionTablas.dibujarTablaActividad(vActividad);
+        ArrayList<Actividad> lActividades = getAll();
+        GestionTablas.vaciarTablaActividad();
+        GestionTablas.rellenarTablaActividad(lActividades);
+    }
+
+    private Actividad getByCod(String id) {
         sesion = sessionFactory.openSession();
         tr = sesion.beginTransaction();
         try {
             actividad = (Actividad) sesion.get(Actividad.class, id);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             tr.rollback();
-            vMensaje.Mensaje(true, ex.getMessage());
-        }finally {
+            vMensaje.Mensaje(vActividad, true, ex.getMessage());
+        } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
             }
         }
         return actividad;
     }
-    
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Eliminar" -> {
                 if (vActividad.jTableActividad.getSelectedRow() == -1) {
-                    vMensaje.Mensaje(true, "Selecciona primero una columna");
+                    vMensaje.Mensaje(vActividad, true, "Selecciona primero una columna");
                 } else {
-                    if (vMensaje.Confirm("¿Estás seguro de eliminar a " + vActividad.jTableActividad.getValueAt(vActividad.jTableActividad.getSelectedRow(), 0) + vActividad.jTableActividad.getValueAt(vActividad.jTableActividad.getSelectedRow(), 1) + "?")) {
+                    if (vMensaje.Confirm(vActividad, "¿Estás seguro de eliminar a " + vActividad.jTableActividad.getValueAt(vActividad.jTableActividad.getSelectedRow(), 0) + vActividad.jTableActividad.getValueAt(vActividad.jTableActividad.getSelectedRow(), 1) + "?")) {
                         String num = (String) vActividad.jTableActividad.getValueAt(vActividad.jTableActividad.getSelectedRow(), 0);
                         borrarActividad(num);
                         tablasActividad();
@@ -179,29 +167,37 @@ public class ControladorActividad implements ActionListener{
 
             case "Actualizar" -> {
                 if (vActividad.jTableActividad.getSelectedRow() == -1) {
-                    vMensaje.Mensaje(true, "Selecciona primero una columna");
+                    vMensaje.Mensaje(vActividad, true, "Selecciona primero una columna");
                 } else {
                     actividad = getByCod((String) vActividad.jTableActividad.getValueAt(vActividad.jTableActividad.getSelectedRow(), 0));
-                    vFormulario.Form(actividad.getIdActividad(),actividad.getNombre(), actividad.getDia(), Integer.toString(actividad.getHora()), Integer.toString(actividad.getPrecioBaseMes()), actividad.getDescripcion());
+                    if (actividad.getMonitorResponsable() != null) {
+                        vFormulario.Form(actividad.getIdActividad(), actividad.getNombre(), actividad.getDia(), actividad.getHora(), Integer.toString(actividad.getPrecioBaseMes()), actividad.getDescripcion(), actividad.getMonitorResponsable().getNombre(), getMonitores());
+                    } else {
+                        vFormulario.Form(actividad.getIdActividad(), actividad.getNombre(), actividad.getDia(), actividad.getHora(), Integer.toString(actividad.getPrecioBaseMes()), actividad.getDescripcion(), cMonitor.getByCod("M001").getNombre(), getMonitores());
+                    }
+
                     vFormulario.setVisible(true);
                 }
             }
 
             case "Insertar" -> {
-                vFormulario.Form(actividadDao.getNextId());
+                vFormulario.Form(actividadDao.getNextId(), getMonitores());
                 vFormulario.setVisible(true);
             }
             case "insertarForm" -> {
-                
-                actividad = new Actividad(vFormulario.Codigo.getText(), vFormulario.Nombre.getText(),vFormulario.Dia.getText(),Integer.parseInt(vFormulario.Hora.getText()),Integer.parseInt(vFormulario.Precio.getText()));
+
+                actividad = new Actividad(vFormulario.Codigo.getText(), vFormulario.Nombre.getText(), (String) vFormulario.Dia.getSelectedItem(), (int) vFormulario.Hora.getSelectedItem(), (int) Integer.parseInt(vFormulario.Precio.getText()));
                 actividad.setDescripcion(vFormulario.Descripcion.getText());
-                if(actividadDao.esVacio(actividad)){
-                    vMensaje.Mensaje(true, "Llena todos los campos");
+                actividad.setMonitorResponsable(cMonitor.getByName((String) vFormulario.Monitor.getSelectedItem()));
+                if (actividadDao.esVacio(actividad)) {
+                    vMensaje.Mensaje(vFormulario, true, "Llena todos los campos");
+                }else if(esValido(actividad)){
+                    vMensaje.Mensaje(vFormulario, true, "El monitor no está disponible");
                 }else{
                     crearActividad(actividad);
-                }
-                vFormulario.dispose();
-                tablasActividad();
+                    vFormulario.dispose();
+                    tablasActividad();
+                }             
             }
 
             case "Cancelar" -> {

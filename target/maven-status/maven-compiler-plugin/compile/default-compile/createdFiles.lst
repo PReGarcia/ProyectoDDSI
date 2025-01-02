@@ -1,6 +1,7 @@
 Controlador\GestionTablas.class
 Modelo\ActividadDAO.class
 Vista\VistaActividad$1.class
+Vista\VistaFormularioSocio.class
 Controlador\GestionTablas$3.class
 Vista\VistaFormularioMonitor$1.class
 Controlador\ControladorActividad.class
@@ -8,8 +9,11 @@ Vista\VistaPrincipal$2.class
 Vista\VistaConexion.class
 Modelo\SocioDAO.class
 Vista\VistaConexion$1.class
+Vista\VistaFormularioSocio$1.class
 Vista\VistaFormularioActividad.class
 Modelo\Socio.class
+Vista\VistaFormularioSocio$2.class
+Vista\VistaFormularioActividad$1.class
 Vista\VistaFormularioMonitor$3.class
 Vista\VistaMensaje.class
 Vista\VistaConexion$3.class

@@ -21,6 +21,10 @@ public class SocioDAO {
         sesion.saveOrUpdate(s);
     }
     
+    public boolean esVacio(Socio s){
+        return s.getCorreo().isEmpty() || s.getTelefono().isEmpty() || s.getFechaNacimiento().isEmpty() || s.getFechaEntrada().isEmpty() || s.getNombre().isEmpty() || s.getDni().isEmpty();
+    }
+    
     public void borrarSocio(Session sesion, Socio s) throws Exception{
         sesion.delete(s);
     }
@@ -34,14 +38,6 @@ public class SocioDAO {
             s = s + tam;
         }
         return s;
-    }
-
-    public Socio getByName(Session s, String n) throws Exception {
-        Query consulta = s.createQuery("FROM Socio s WHERE s.nombre LIKE: parametro", Socio.class);
-        consulta.setParameter("parametro", n);
-        socio = (Socio) consulta.getSingleResult();
-
-        return socio;
     }
 
     public ArrayList<Socio> getAll(Session s) throws Exception {

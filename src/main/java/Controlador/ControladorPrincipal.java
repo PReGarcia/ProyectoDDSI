@@ -81,7 +81,7 @@ public class ControladorPrincipal implements ActionListener {
                 muestraPanel("Inicio");
             }
             case "Salir" -> {
-                vMensaje.Mensaje(false, "Salida correcta de la aplicaion");
+                vMensaje.Mensaje(vPrincipal,false, "Salida correcta de la aplicaion");
                 System.exit(0);
             }
             case "GestionActividad" -> {

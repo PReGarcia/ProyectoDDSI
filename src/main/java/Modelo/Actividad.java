@@ -166,7 +166,7 @@ public class Actividad implements Serializable {
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre  +'\n' +"Descripcion: " + descripcion + '\n' + "Dia: " + dia + '\n' + "Hora: " + hora +'\n' + "Cuota: " + precioBaseMes + '\n' ;
+        return "Nombre: " + nombre  +'\n' +"Descripcion: " + descripcion + '\n' + "Dia: " + dia + '\n' + "Hora: " + hora +'\n' + "Cuota: " + precioBaseMes + '\n'  + " Monitor: " + monitorResponsable + '\n';
     }
 
 }

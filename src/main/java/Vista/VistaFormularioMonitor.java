@@ -19,7 +19,6 @@ public class VistaFormularioMonitor extends javax.swing.JDialog {
      * Creates new form Formulario
      */
     public VistaFormularioMonitor() {
-        //super(parent, modal);
         initComponents();
     }
     
@@ -62,7 +61,7 @@ public class VistaFormularioMonitor extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Telefono = new javax.swing.JFormattedTextField(new Integer(1));
+        Telefono = new javax.swing.JTextField();
         Correo = new javax.swing.JTextField();
         Nick = new javax.swing.JTextField();
         Fecha = new com.toedter.calendar.JDateChooser();
@@ -175,7 +174,7 @@ public class VistaFormularioMonitor extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insertarForm)
                     .addComponent(Cancelar))

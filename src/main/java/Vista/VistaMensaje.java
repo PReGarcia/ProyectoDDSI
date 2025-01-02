@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import java.awt.Component;
+
 /**
  *
  * @author pareg
@@ -17,18 +19,18 @@ public class VistaMensaje extends javax.swing.JFrame {
         initComponents();
     }
 
-    public boolean Confirm(String t) {
-        if(jOptionPane1.showConfirmDialog(null, t, "Confirmación", jOptionPane1.OK_CANCEL_OPTION, jOptionPane1.QUESTION_MESSAGE) == 0)
+    public boolean Confirm(Component c,String t) {
+        if(jOptionPane1.showConfirmDialog(c, t, "Confirmación", jOptionPane1.OK_CANCEL_OPTION, jOptionPane1.QUESTION_MESSAGE) == 0)
             return true;
         else
             return false;
     }
 
-    public void Mensaje(boolean tipo, String texto) {
+    public void Mensaje(Component c,boolean tipo, String texto) {
         if (!tipo) {
-            jOptionPane1.showMessageDialog(null, texto, null, jOptionPane1.INFORMATION_MESSAGE);
+            jOptionPane1.showMessageDialog(c, texto, null, jOptionPane1.INFORMATION_MESSAGE);
         } else {
-            jOptionPane1.showMessageDialog(null, texto, null, jOptionPane1.ERROR_MESSAGE);
+            jOptionPane1.showMessageDialog(c, texto, null, jOptionPane1.ERROR_MESSAGE);
         }
     }
 

@@ -9,6 +9,7 @@ import Modelo.MonitorDAO;
 import Vista.VistaFormularioMonitor;
 import Vista.VistaMensaje;
 import Vista.VistaMonitor;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -30,7 +31,7 @@ public class ControladorMonitor implements ActionListener {
 
     private ArrayList<Monitor> listaMonitores;
 
-    private VistaMonitor vm;
+    private VistaMonitor vMonitor;
     private VistaMensaje vMensaje;
     private VistaFormularioMonitor vFormulario;
 
@@ -46,46 +47,74 @@ public class ControladorMonitor implements ActionListener {
         listaMonitores = new ArrayList();
 
         vFormulario = new VistaFormularioMonitor();
-        vm = vMonitor;
+        vFormulario.setLocationRelativeTo(null);
+        vFormulario.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        vFormulario.setResizable(false);
+        
+        this.vMonitor = vMonitor;
         vMensaje = new VistaMensaje();
 
         addListeners();
 
-        GestionTablas.inicializarTablaMonitor(vm);
+        GestionTablas.inicializarTablaMonitor(vMonitor);
+    }
+
+    public ControladorMonitor(SessionFactory s) {
+        monitorDao = new MonitorDAO();
+
+        sessionFactory = s;
+        sesion = sessionFactory.openSession();
+        listaMonitores = new ArrayList();
     }
 
     private void addListeners() {
-        vm.Eliminar.addActionListener(this);
-        vm.Actualizar.addActionListener(this);
-        vm.Insertar.addActionListener(this);
+        vMonitor.Eliminar.addActionListener(this);
+        vMonitor.Actualizar.addActionListener(this);
+        vMonitor.Insertar.addActionListener(this);
         vFormulario.insertarForm.addActionListener(this);
         vFormulario.Cancelar.addActionListener(this);
     }
 
-    private ArrayList<Monitor> getAll() {
+    public ArrayList<Monitor> getAll() {
         sesion = sessionFactory.openSession();
         tr = sesion.beginTransaction();
         try {
             listaMonitores = monitorDao.getAll(sesion);
         } catch (Exception ex) {
-            vMensaje.Mensaje(true, "Error en la consulta");
-        }finally {
+            vMensaje.Mensaje(vMonitor, true, "Error en la consulta");
+        } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
             }
         }
         return listaMonitores;
     }
-    
-    private Monitor getByCod(String id){
+
+    public Monitor getByCod(String id) {
         sesion = sessionFactory.openSession();
         tr = sesion.beginTransaction();
         try {
             monitor = (Monitor) sesion.get(Monitor.class, id);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             tr.rollback();
-            vMensaje.Mensaje(true, ex.getMessage());
-        }finally {
+            vMensaje.Mensaje(vFormulario, true, ex.getMessage());
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
+        return monitor;
+    }
+
+    public Monitor getByName(String s) {
+        sesion = sessionFactory.openSession();
+        tr = sesion.beginTransaction();
+        try {
+            monitor = monitorDao.getByName(sesion, s);
+        } catch (Exception ex) {
+            tr.rollback();
+            vMensaje.Mensaje(vFormulario, true, ex.getMessage());
+        } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
             }
@@ -99,10 +128,10 @@ public class ControladorMonitor implements ActionListener {
         try {
             monitorDao.insertaActualizaMonitor(sesion, m);
             tr.commit();
-            vMensaje.Mensaje(false, "Monitor insertado correctamente");
+            vMensaje.Mensaje(vFormulario, false, "Monitor insertado correctamente");
         } catch (Exception ex) {
             tr.rollback();
-            vMensaje.Mensaje(true, ex.getMessage());
+            vMensaje.Mensaje(vFormulario, true, ex.getMessage());
         } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
@@ -115,49 +144,37 @@ public class ControladorMonitor implements ActionListener {
         tr = sesion.beginTransaction();
         try {
             monitor = (Monitor) sesion.get(Monitor.class, id);
-            System.out.println(monitor);
 
             monitorDao.borrarMonitor(sesion, monitor);
 
             tr.commit();
-            vMensaje.Mensaje(false, "Monitor borrado correctamente");
+            vMensaje.Mensaje(vMonitor, false, "Monitor borrado correctamente");
         } catch (Exception ex) {
             tr.rollback();
-            vMensaje.Mensaje(true, ex.getMessage());
+            vMensaje.Mensaje(vMonitor, true, ex.getMessage());
         } finally {
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
             }
         }
     }
-    
-    public void tablasMonitor(){
-        sesion = sessionFactory.openSession();
-        tr = sesion.beginTransaction();
-        try {
-            GestionTablas.dibujarTablaMonitor(vm);
-            ArrayList<Monitor> lMonitores = getAll();
-            GestionTablas.vaciarTablaMonitor();
-            GestionTablas.rellenarTablaMonitor(lMonitores);
-        } catch (Exception ex) {
-            tr.rollback();
-            vMensaje.Mensaje(false, "Error en la consulta para las tablas");
-        } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
-        }
+
+    public void tablasMonitor() {
+        GestionTablas.dibujarTablaMonitor(vMonitor);
+        ArrayList<Monitor> lMonitores = getAll();
+        GestionTablas.vaciarTablaMonitor();
+        GestionTablas.rellenarTablaMonitor(lMonitores);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Eliminar" -> {
-                if (vm.jTableMonitor.getSelectedRow() == -1) {
-                    vMensaje.Mensaje(true, "Selecciona primero una columna");
+                if (vMonitor.jTableMonitor.getSelectedRow() == -1) {
+                    vMensaje.Mensaje(vMonitor, true, "Selecciona primero una columna");
                 } else {
-                    if (vMensaje.Confirm("¿Estás seguro de eliminar a " + vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(), 0) + vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(), 1) + "?")) {
-                        String num = (String) vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(), 0);
+                    if (vMensaje.Confirm(vMonitor, "¿Estás seguro de eliminar a " + vMonitor.jTableMonitor.getValueAt(vMonitor.jTableMonitor.getSelectedRow(), 0) + vMonitor.jTableMonitor.getValueAt(vMonitor.jTableMonitor.getSelectedRow(), 1) + "?")) {
+                        String num = (String) vMonitor.jTableMonitor.getValueAt(vMonitor.jTableMonitor.getSelectedRow(), 0);
                         borrarMonitor(num);
                         tablasMonitor();
                     }
@@ -165,19 +182,18 @@ public class ControladorMonitor implements ActionListener {
             }
 
             case "Actualizar" -> {
-                if (vm.jTableMonitor.getSelectedRow() == -1) {
-                    vMensaje.Mensaje(true, "Selecciona primero una columna");
+                if (vMonitor.jTableMonitor.getSelectedRow() == -1) {
+                    vMensaje.Mensaje(vMonitor, true, "Selecciona primero una columna");
                 } else {
-                    monitor = getByCod((String)vm.jTableMonitor.getValueAt(vm.jTableMonitor.getSelectedRow(), 0)) ;
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
-                    try{
+                    monitor = getByCod((String) vMonitor.jTableMonitor.getValueAt(vMonitor.jTableMonitor.getSelectedRow(), 0));
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
                         Date d = sdf.parse(monitor.getFechaEntrada());
-                        vFormulario.Form(monitor.getCodMonitor(),monitor.getNombre(),monitor.getDni(),monitor.getTelefono(),monitor.getCorreo(),d,monitor.getNick());
-                    }catch(ParseException ex){
-                        vMensaje.Mensaje(true, ex.getMessage());
+                        vFormulario.Form(monitor.getCodMonitor(), monitor.getNombre(), monitor.getDni(), monitor.getTelefono(), monitor.getCorreo(), d, monitor.getNick());
+                        vFormulario.setVisible(true);
+                    } catch (ParseException ex) {
+                        vMensaje.Mensaje(vMonitor, true, ex.getMessage());
                     }
-                    
-                    vFormulario.setVisible(true);
                 }
             }
 
@@ -186,17 +202,24 @@ public class ControladorMonitor implements ActionListener {
                 vFormulario.setVisible(true);
             }
             case "insertarForm" -> {
-                monitor = new Monitor(vFormulario.Codigo.getText(), vFormulario.Nombre.getText(), vFormulario.DNI.getText(), vFormulario.Telefono.getText(), vFormulario.Correo.getText(), vFormulario.Fecha.getDateFormatString(), vFormulario.Nick.getText());
-                altaMonitor(monitor);
-                vFormulario.dispose();
-                tablasMonitor();
+                int d = vFormulario.Fecha.getDate().getDate();
+                int m = vFormulario.Fecha.getDate().getMonth() + 1;
+                int y = vFormulario.Fecha.getDate().getYear() + 1900;
+                String s = d + "/" + m + "/" + y;
+                monitor = new Monitor(vFormulario.Codigo.getText(), vFormulario.Nombre.getText(), vFormulario.DNI.getText(), vFormulario.Telefono.getText(), vFormulario.Correo.getText(), s, vFormulario.Nick.getText());
+                if (monitorDao.esVacio(monitor)) {
+                    vMensaje.Mensaje(vFormulario, true, "Llena todos los campos");
+                } else {
+                    altaMonitor(monitor);
+                    vFormulario.dispose();
+                    tablasMonitor();
+                }
+
             }
 
             case "Cancelar" -> {
                 vFormulario.dispose();
             }
         }
-
     }
 }
-
