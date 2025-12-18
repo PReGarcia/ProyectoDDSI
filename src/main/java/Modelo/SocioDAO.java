@@ -16,19 +16,19 @@ public class SocioDAO {
 
     ArrayList<Socio> listaSocios;
     Socio socio;
-    
-    public void insertaActualizaSocio(Session sesion, Socio s) throws Exception{
+
+    public void insertaActualizaSocio(Session sesion, Socio s) throws Exception {
         sesion.saveOrUpdate(s);
     }
-    
-    public boolean esVacio(Socio s){
+
+    public boolean esVacio(Socio s) {
         return s.getCorreo().isEmpty() || s.getTelefono().isEmpty() || s.getFechaNacimiento().isEmpty() || s.getFechaEntrada().isEmpty() || s.getNombre().isEmpty() || s.getDni().isEmpty();
     }
-    
-    public void borrarSocio(Session sesion, Socio s) throws Exception{
+
+    public void borrarSocio(Session sesion, Socio s) throws Exception {
         System.out.println(sesion);
         sesion.delete(s);
-        
+
     }
 
     public String getNextId() {
@@ -44,9 +44,8 @@ public class SocioDAO {
 
     public ArrayList<Socio> getAll(Session s) throws Exception {
         Query consulta = s.createQuery("FROM Socio s", Socio.class);
-        listaSocios = (ArrayList<Socio>) consulta.getResultList();
-
+        listaSocios = new ArrayList<>(consulta.getResultList()); // <--- CORRECCIÓN: Creamos un nuevo ArrayList
         return listaSocios;
     }
-   
+
 }

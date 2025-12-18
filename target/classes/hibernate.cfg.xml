@@ -4,7 +4,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mariadb://172.18.1.241:3306/DDSI_076</property>
+        <property name="hibernate.connection.url">jdbc:mariadb://localhost:3306/DDSI_076</property>
         <property name="hibernate.connection.username">DDSI_076</property>
         <property name="hibernate.connection.password">DDSI_076</property>
         <property name="hibernate. show_sql">true</property>

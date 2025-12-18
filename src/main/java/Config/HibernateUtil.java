@@ -17,11 +17,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
  * @author pareg
  */
 
-
-
-// ESTE DOCUMENTO ENTERO ESTA EN LA MOODLE EN VERSION ACTUALIZADA...
-// ES EL QUE SE ENCARGA DE HACER LA CONEXION CON LA BBDD
-
 public class HibernateUtil{
 
     private static SessionFactory sessionFactory;
@@ -34,7 +29,7 @@ public class HibernateUtil{
                     .applySetting("hibernate.connection.username", ControladorConexion.user)
                     .applySetting("hibernate.connection.password", ControladorConexion.pass)
                     .applySetting("hibernate.connection.url",
-                            "jdbc:mariadb://172.18.1.241:3306/" + ControladorConexion.user).build();
+                            "jdbc:mariadb://localhost:3306/" + ControladorConexion.user).build();
                       
             Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
             return metadata.getSessionFactoryBuilder().build();

@@ -1,25 +1,25 @@
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Aplicacion\ProyectoDDSI.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Config\HibernateUtil.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorActividad.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorConexion.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorMonitor.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorPrincipal.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\ControladorSocio.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Controlador\GestionTablas.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\Actividad.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\ActividadDAO.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\Monitor.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\MonitorDAO.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\Socio.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Modelo\SocioDAO.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaActividad.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaConexion.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaFormularioActividad.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaFormularioMonitor.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaFormularioSocio.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaFormularioSocioActividad.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaInicio.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaMensaje.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaMonitor.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaPrincipal.java
-C:\Users\pareg\OneDrive\Escritorio\Practica 1 cuat\ddsi\practicas\ProyectoDDSI\src\main\java\Vista\VistaSocio.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Aplicacion/ProyectoDDSI.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Config/HibernateUtil.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Controlador/ControladorActividad.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Controlador/ControladorConexion.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Controlador/ControladorMonitor.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Controlador/ControladorPrincipal.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Controlador/ControladorSocio.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Controlador/GestionTablas.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Modelo/Actividad.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Modelo/ActividadDAO.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Modelo/Monitor.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Modelo/MonitorDAO.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Modelo/Socio.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Modelo/SocioDAO.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaActividad.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaConexion.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaFormularioActividad.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaFormularioMonitor.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaFormularioSocio.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaFormularioSocioActividad.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaInicio.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaMensaje.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaMonitor.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaPrincipal.java
+/home/pablo/Descargas/ProyectoDDSI-interfaz/src/main/java/Vista/VistaSocio.java

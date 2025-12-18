@@ -43,7 +43,7 @@ public class MonitorDAO {
     
     public ArrayList<Monitor> getAll(Session s) throws Exception {
         consulta = s.createQuery("FROM Monitor m", Monitor.class);
-        listaMonitores = (ArrayList<Monitor>) consulta.getResultList();
+        listaMonitores = new ArrayList<>(consulta.getResultList());
 
         return listaMonitores;
     }

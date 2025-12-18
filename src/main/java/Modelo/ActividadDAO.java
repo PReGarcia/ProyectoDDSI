@@ -44,7 +44,7 @@ public class ActividadDAO {
     
     public ArrayList<Actividad> getAll(Session s) throws Exception{
         Query consulta = s.createQuery("FROM Actividad m" , Actividad.class);
-        listaActividades = (ArrayList<Actividad>) consulta.getResultList();
+        listaActividades = new ArrayList<>(consulta.getResultList());
         
         return listaActividades;
     }
